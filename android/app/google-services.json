@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "239415832507",
+    "project_id": "agri-mechanic",
+    "storage_bucket": "agri-mechanic.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:239415832507:android:ed86353a0bba923775de9e",
+        "android_client_info": {
+          "package_name": "com.example.agri_mechanic"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkusTSCFwOGR4RH02xQKfaGUwYGODPztE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
