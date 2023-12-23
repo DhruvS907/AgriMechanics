@@ -46,11 +46,11 @@ class _SignUppageState extends State<SignUppage> {
         backgroundColor: const Color.fromARGB(225, 233, 128, 252),
       ),
       body: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-        UiHelper.CustomTextField(
+        CustomTextField(
             emailController, "Email", Icon(Icons.mail), false, context),
-        UiHelper.CustomTextField(passwordController, "Password",
-            Icon(Icons.password), true, context),
-        UiHelper.CustomButton(() async {
+        CustomTextField(passwordController, "Password", Icon(Icons.password),
+            true, context),
+        CustomButton(() async {
           signUp(emailController.text.toString(),
               passwordController.text.toString());
         }, "Sign Up", context),

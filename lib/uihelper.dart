@@ -3,9 +3,22 @@
 import 'package:agri_mechanic/utils/constants.dart';
 import 'package:flutter/material.dart';
 
-class UiHelper {
-  static CustomTextField(TextEditingController controller, String text,
-      Icon icondata, bool tohide, BuildContext context) {
+class CustomTextField extends StatelessWidget {
+  CustomTextField(TextEditingController controller, String text, Icon icondata,
+      bool tohide, BuildContext context,
+      {super.key})
+      : context = context,
+        text = text,
+        icondata = icondata,
+        tohide = tohide,
+        controller = controller;
+  TextEditingController controller;
+  String text;
+  Icon icondata;
+  bool tohide;
+  BuildContext context;
+  @override
+  Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
       child: TextField(
@@ -34,9 +47,19 @@ class UiHelper {
                       const BorderSide(color: kLightSecondaryTextColor)))),
     );
   }
+}
 
-  static CustomButton(
-      VoidCallback voidCallback, String text, BuildContext context) {
+class CustomButton extends StatelessWidget {
+  CustomButton(VoidCallback voidCallback, String text, BuildContext context,
+      {super.key})
+      : voidCallback = voidCallback,
+        text = text,
+        context = context;
+  VoidCallback voidCallback;
+  String text;
+  BuildContext context;
+  @override
+  Widget build(BuildContext context) {
     return SizedBox(
         width: 250,
         height: 70,
@@ -57,7 +80,9 @@ class UiHelper {
           ),
         ));
   }
+}
 
+class UiHelper {
   static CustomAlertBox(BuildContext context, String text) {
     return showDialog(
         context: context,

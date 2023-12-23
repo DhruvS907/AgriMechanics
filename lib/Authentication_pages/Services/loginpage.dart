@@ -57,58 +57,77 @@ class _LoginPageState extends State<LoginPage> {
           left: -5,
           right: -5,
           child: Card(
-            shape: RoundedRectangleBorder(
+            shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.only(topLeft: Radius.circular(60))),
             color: kLightSecondaryColor,
             child: SizedBox(
               height: size.height * 0.65,
               width: size.width,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  UiHelper.CustomTextField(emailController, "Email",
-                      Icon(Icons.mail), false, context),
-                  UiHelper.CustomTextField(passwordController, "Password",
-                      Icon(Icons.password), true, context),
-                  UiHelper.CustomButton(() async {
-                    login(
-                      emailController.text.toString(),
-                      passwordController.text.toString(),
-                    );
-                  }, "Login", context),
-                  const SizedBox(height: 10),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Or",
+              child: Padding(
+                padding: const EdgeInsets.only(top: 40),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Center(
+                      child: Text(
+                        'Login',
                         style: Theme.of(context)
                             .textTheme
-                            .bodySmall!
-                            .copyWith(color: kLightSecondaryTextColor),
+                            .displayLarge!
+                            .copyWith(
+                                color: kLightPrimaryBackgroundColor,
+                                fontWeight: FontWeight.w700),
                       ),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => SignUppage()),
-                          );
-                        },
-                        child: Text(
-                          "Sign Up",
-                          style:
-                              Theme.of(context).textTheme.titleMedium!.copyWith(
-                                    color: kLightPrimaryBackgroundColor,
-                                  ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    CustomTextField(emailController, "Email", Icon(Icons.mail),
+                        false, context),
+                    CustomTextField(passwordController, "Password",
+                        Icon(Icons.password), true, context),
+                    CustomButton(() async {
+                      login(
+                        emailController.text.toString(),
+                        passwordController.text.toString(),
+                      );
+                    }, "Login", context),
+                    const SizedBox(height: 10),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Or",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodySmall!
+                              .copyWith(color: kLightSecondaryTextColor),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                        TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SignUppage()),
+                            );
+                          },
+                          child: Text(
+                            "Sign Up",
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium!
+                                .copyWith(
+                                  color: kLightPrimaryBackgroundColor,
+                                ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

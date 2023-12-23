@@ -68,14 +68,14 @@ class _mainscreen2State extends State<mainscreen2> {
             SizedBox(
               height: 20,
             ),
-            UiHelper.CustomButton(() {
+            CustomButton(() {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => mainScreen()));
             }, "Old Customer", context),
             SizedBox(
               height: 20,
             ),
-            UiHelper.CustomButton(() {
+            CustomButton(() {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => mainScreen()));
             }, "New Customer", context)
