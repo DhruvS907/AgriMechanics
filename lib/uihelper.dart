@@ -1,25 +1,42 @@
 // ignore_for_file: unused_import
 
+import 'package:agri_mechanic/utils/constants.dart';
 import 'package:flutter/material.dart';
 
 class UiHelper {
   static CustomTextField(TextEditingController controller, String text,
-      Icon icondata, bool tohide) {
+      Icon icondata, bool tohide, BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
       child: TextField(
           controller: controller,
           obscureText: tohide,
+          style: Theme.of(context)
+              .textTheme
+              .bodyLarge!
+              .copyWith(color: kprimaryTextColor),
           decoration: InputDecoration(
               fillColor: Colors.white,
-              hintText: text,
+              labelText: text,
+              labelStyle: Theme.of(context)
+                  .textTheme
+                  .bodyLarge!
+                  .copyWith(color: kLightSecondaryTextColor),
               suffixIcon: icondata,
-              border:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(25)))),
+              suffixIconColor: kLightSecondaryTextColor,
+              focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(25),
+                  borderSide:
+                      const BorderSide(color: kLightPrimaryBackgroundColor)),
+              enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(25),
+                  borderSide:
+                      const BorderSide(color: kLightSecondaryTextColor)))),
     );
   }
 
-  static CustomButton(VoidCallback voidCallback, String text) {
+  static CustomButton(
+      VoidCallback voidCallback, String text, BuildContext context) {
     return SizedBox(
         width: 250,
         height: 70,
@@ -28,14 +45,15 @@ class UiHelper {
             voidCallback();
           },
           style: ElevatedButton.styleFrom(
+              backgroundColor: kLightSecondaryBackgroundColor,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(25))),
           child: Text(
             text,
-            style: TextStyle(
-              color: Colors.purple,
-              fontSize: 20,
-            ),
+            style: Theme.of(context)
+                .textTheme
+                .bodyLarge!
+                .copyWith(color: kLightPrimaryTextColor),
           ),
         ));
   }

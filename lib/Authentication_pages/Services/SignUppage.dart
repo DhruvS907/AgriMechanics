@@ -47,13 +47,13 @@ class _SignUppageState extends State<SignUppage> {
       ),
       body: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
         UiHelper.CustomTextField(
-            emailController, "Email", Icon(Icons.mail), false),
-        UiHelper.CustomTextField(
-            passwordController, "Password", Icon(Icons.password), true),
+            emailController, "Email", Icon(Icons.mail), false, context),
+        UiHelper.CustomTextField(passwordController, "Password",
+            Icon(Icons.password), true, context),
         UiHelper.CustomButton(() async {
           signUp(emailController.text.toString(),
               passwordController.text.toString());
-        }, "Sign Up"),
+        }, "Sign Up", context),
         SizedBox(
           height: 30,
         ),

@@ -43,14 +43,14 @@ class _HomePageState extends State<HomePage> {
             icon: Icon(Icons.logout))
       ]),
       body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-        UiHelper.CustomTextField(
-            firstnamecontroller, "Your First Name", Icon(Icons.person), false),
-        UiHelper.CustomTextField(
-            lastnamecontroller, "Your Last Name", Icon(Icons.person), false),
+        UiHelper.CustomTextField(firstnamecontroller, "Your First Name",
+            Icon(Icons.person), false, context),
+        UiHelper.CustomTextField(lastnamecontroller, "Your Last Name",
+            Icon(Icons.person), false, context),
         UiHelper.CustomButton(() {
           saveData(firstnamecontroller.text.toString(),
               lastnamecontroller.text.toString());
-        }, "Save Data")
+        }, "Save Data", context)
       ]),
     );
     ;
