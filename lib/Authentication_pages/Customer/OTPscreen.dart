@@ -1,4 +1,5 @@
 import 'package:agri_mechanic/Screens/SaveData.dart';
+import 'package:agri_mechanic/Screens/Services/Form.dart';
 import 'package:agri_mechanic/uihelper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -54,7 +55,7 @@ class _OTPScreenState extends State<OTPScreen> {
                       .signInWithCredential(credential)
                       .then((value) {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => HomePage()));
+                        MaterialPageRoute(builder: (context) => mainScreen()));
                   });
                 } catch (ex) {
                   UiHelper.CustomAlertBox(context, ex.toString());

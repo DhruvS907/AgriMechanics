@@ -5,7 +5,7 @@ import 'dart:io';
 
 import 'package:agri_mechanic/Authentication_pages/Customer/OTPscreen.dart';
 import 'package:agri_mechanic/Authentication_pages/Customer/OtpAuthentication.dart';
-import 'package:agri_mechanic/Screens/Form.dart';
+import 'package:agri_mechanic/Screens/Services/Form.dart';
 import 'package:agri_mechanic/Screens/InitialScreen.dart';
 import 'package:agri_mechanic/Screens/Interface.dart';
 import 'package:agri_mechanic/Screens/SaveData.dart';

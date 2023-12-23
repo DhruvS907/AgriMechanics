@@ -1,4 +1,5 @@
-import 'package:agri_mechanic/Screens/Form.dart';
+import 'package:agri_mechanic/Screens/Services/Form.dart';
+import 'package:agri_mechanic/Screens/Services/Userdata.dart';
 import 'package:agri_mechanic/uihelper.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -66,8 +67,8 @@ class _mainscreen2State extends State<mainscreen2> {
             ),
             UiHelper.CustomButton(() {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => mainScreen()));
-            }, "Old Customer"),
+                  MaterialPageRoute(builder: (context) => customerData()));
+            }, "Today's Customer"),
             SizedBox(
               height: 20,
             ),
