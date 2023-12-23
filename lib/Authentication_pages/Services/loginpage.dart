@@ -94,13 +94,13 @@ class _LoginPageState extends State<LoginPage> {
                         passwordController.text.toString(),
                       );
                     }, "Login", context),
-                    const SizedBox(height: 10),
-                    Row(
+                    const SizedBox(height: 20),
+                    Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "Or",
+                          "Don't have an account yet?",
                           style: Theme.of(context)
                               .textTheme
                               .bodySmall!
@@ -108,20 +108,23 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         TextButton(
                           onPressed: () {
-                            Navigator.push(
+                            Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => SignUppage()),
                             );
                           },
                           child: Text(
-                            "Sign Up",
+                            "SignUp",
                             style: Theme.of(context)
                                 .textTheme
                                 .titleMedium!
                                 .copyWith(
-                                  color: kLightPrimaryBackgroundColor,
-                                ),
+                                    color: kLightPrimaryBackgroundColor,
+                                    decoration: TextDecoration.underline,
+                                    decorationColor:
+                                        kLightPrimaryBackgroundColor,
+                                    decorationThickness: 1),
                           ),
                         ),
                       ],

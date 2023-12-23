@@ -49,7 +49,7 @@ class _PhoneAuthState extends State<PhoneAuth> {
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         height: 80,
                       ),
                       Padding(
@@ -63,7 +63,7 @@ class _PhoneAuthState extends State<PhoneAuth> {
                                   ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Padding(
@@ -84,7 +84,7 @@ class _PhoneAuthState extends State<PhoneAuth> {
                                     .copyWith(color: kLightSecondaryTextColor),
                                 suffixIcon: Icon(Icons.phone),
                                 focusColor: kLightPrimaryBackgroundColor,
-                                // suffixIconColor: kLightSecondaryTextColor,
+                                suffixIconColor: kLightSecondaryTextColor,
                                 focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(25),
                                     borderSide: const BorderSide(
@@ -94,7 +94,7 @@ class _PhoneAuthState extends State<PhoneAuth> {
                                     borderSide: const BorderSide(
                                         color: kLightSecondaryTextColor)))),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 30,
                       ),
                       Center(

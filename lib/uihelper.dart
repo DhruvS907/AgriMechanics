@@ -22,29 +22,29 @@ class CustomTextField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
       child: TextField(
-          controller: controller,
-          obscureText: tohide,
-          style: Theme.of(context)
+        controller: controller,
+        obscureText: tohide,
+        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+            color: kprimaryTextColor,
+            decoration: TextDecoration.underline,
+            decorationThickness: 0),
+        decoration: InputDecoration(
+          labelText: text,
+          labelStyle: Theme.of(context)
               .textTheme
               .bodyLarge!
-              .copyWith(color: kprimaryTextColor),
-          decoration: InputDecoration(
-              fillColor: Colors.white,
-              labelText: text,
-              labelStyle: Theme.of(context)
-                  .textTheme
-                  .bodyLarge!
-                  .copyWith(color: kLightSecondaryTextColor),
-              suffixIcon: icondata,
-              suffixIconColor: kLightSecondaryTextColor,
-              focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(25),
-                  borderSide:
-                      const BorderSide(color: kLightPrimaryBackgroundColor)),
-              enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(25),
-                  borderSide:
-                      const BorderSide(color: kLightSecondaryTextColor)))),
+              .copyWith(color: kLightSecondaryTextColor),
+          suffixIcon: icondata,
+          suffixIconColor: kLightSecondaryTextColor,
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(25),
+              borderSide:
+                  const BorderSide(color: kLightPrimaryBackgroundColor)),
+          enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(25),
+              borderSide: const BorderSide(color: kLightSecondaryTextColor)),
+        ),
+      ),
     );
   }
 }
