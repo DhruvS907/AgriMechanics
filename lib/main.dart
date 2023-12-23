@@ -8,9 +8,8 @@ import 'package:agri_mechanic/Authentication_pages/Customer/OtpAuthentication.da
 import 'package:agri_mechanic/Screens/Services/Form.dart';
 import 'package:agri_mechanic/Screens/InitialScreen.dart';
 import 'package:agri_mechanic/Screens/Interface.dart';
-import 'package:agri_mechanic/Screens/SaveData.dart';
-import 'package:agri_mechanic/Authentication_pages/SignIn.dart';
-import 'package:agri_mechanic/Authentication_pages/Services/loginpage.dart';
+
+import 'package:agri_mechanic/utils/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -26,14 +25,15 @@ void main() async {
               projectId: 'agri-mechanic'))
       : await Firebase.initializeApp();
   runApp(MaterialApp(
+      theme: kLightThemeData,
       home: StreamBuilder(
-    stream: FirebaseAuth.instance.authStateChanges(),
-    builder: (context, snapshot) {
-      if (snapshot.hasData) {
-        return mainscreen2();
-      } else {
-        return InitialScreen();
-      }
-    },
-  )));
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return mainscreen2();
+          } else {
+            return InitialScreen();
+          }
+        },
+      )));
 }

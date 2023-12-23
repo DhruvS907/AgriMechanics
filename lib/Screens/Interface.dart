@@ -1,6 +1,7 @@
 import 'package:agri_mechanic/Screens/Services/Form.dart';
 import 'package:agri_mechanic/Screens/Services/Userdata.dart';
 import 'package:agri_mechanic/uihelper.dart';
+import 'package:agri_mechanic/utils/constants.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,9 @@ class _mainscreen2State extends State<mainscreen2> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
+      backgroundColor: kLightPrimaryBackgroundColor,
       appBar: AppBar(
         title: AnimatedTextKit(
           animatedTexts: [
@@ -67,15 +70,15 @@ class _mainscreen2State extends State<mainscreen2> {
             ),
             UiHelper.CustomButton(() {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => customerData()));
-            }, "Today's Customer"),
+                  MaterialPageRoute(builder: (context) => mainScreen()));
+            }, "Old Customer", context),
             SizedBox(
               height: 20,
             ),
             UiHelper.CustomButton(() {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => mainScreen()));
-            }, "New Customer")
+            }, "New Customer", context)
           ]),
     );
     ;
