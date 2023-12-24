@@ -1,3 +1,5 @@
+import 'package:agri_mechanic/Authentication_pages/Services/loginpage.dart';
+import 'package:agri_mechanic/Screens/InitialScreen.dart';
 import 'package:agri_mechanic/Screens/Services/Form.dart';
 import 'package:agri_mechanic/Screens/Services/Userdata.dart';
 import 'package:agri_mechanic/uihelper.dart';
@@ -14,8 +16,8 @@ class mainscreen2 extends StatefulWidget {
 }
 
 class _mainscreen2State extends State<mainscreen2> {
-  Logout() {
-    FirebaseAuth.instance.signOut();
+  Logout() async {
+    await FirebaseAuth.instance.signOut();
   }
 
   @override
@@ -90,6 +92,20 @@ class _mainscreen2State extends State<mainscreen2> {
             ),
           ),
         ),
+        Positioned(
+            top: 30,
+            right: 10,
+            child: IconButton(
+              iconSize: 30,
+              icon: Icon(Icons.exit_to_app_outlined),
+              onPressed: () async {
+                await Logout();
+                Navigator.of(context)
+                    .pushReplacement(MaterialPageRoute(builder: (context) {
+                  return LoginPage();
+                }));
+              },
+            ))
       ]),
     );
   }

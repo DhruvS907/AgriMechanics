@@ -16,6 +16,13 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  ValueNotifier<bool> isHidden = ValueNotifier<bool>(true);
+  @override
+  void dispose() {
+    super.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+  }
 
   login(String email, String password) async {
     if (email == "" || password == "") {
@@ -86,8 +93,54 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     CustomTextField(emailController, "Email", Icon(Icons.mail),
                         false, context),
-                    CustomTextField(passwordController, "Password",
-                        Icon(Icons.password), true, context),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 25, vertical: 15),
+                      child: ValueListenableBuilder(
+                          valueListenable: isHidden,
+                          builder: (context, value, _) {
+                            return TextField(
+                              controller: passwordController,
+                              obscureText: isHidden.value,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge!
+                                  .copyWith(
+                                      color: kprimaryTextColor,
+                                      decoration: TextDecoration.underline,
+                                      decorationThickness: 0),
+                              decoration: InputDecoration(
+                                labelText: "Password",
+                                labelStyle: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge!
+                                    .copyWith(color: kLightSecondaryTextColor),
+                                suffixIcon: isHidden.value
+                                    ? IconButton(
+                                        icon: Icon(Icons.visibility_off),
+                                        onPressed: () {
+                                          isHidden.value = false;
+                                        },
+                                      )
+                                    : IconButton(
+                                        icon: Icon(Icons.visibility),
+                                        onPressed: () {
+                                          isHidden.value = true;
+                                        },
+                                      ),
+                                suffixIconColor: kLightSecondaryTextColor,
+                                focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(25),
+                                    borderSide: const BorderSide(
+                                        color: kLightPrimaryBackgroundColor)),
+                                enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(25),
+                                    borderSide: const BorderSide(
+                                        color: kLightSecondaryTextColor)),
+                              ),
+                            );
+                          }),
+                    ),
                     CustomButton(() async {
                       login(
                         emailController.text.toString(),
