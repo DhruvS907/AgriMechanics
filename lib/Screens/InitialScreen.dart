@@ -68,14 +68,14 @@ class InitialScreen extends StatelessWidget {
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  UiHelper.CustomButton(() {
+                  CustomButton(() {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => LoginPage()));
                   }, "Services", context),
                   const SizedBox(
                     height: 20,
                   ),
-                  UiHelper.CustomButton(() {
+                  CustomButton(() {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => PhoneAuth()));
                   }, "Customer", context)

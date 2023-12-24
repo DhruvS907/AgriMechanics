@@ -1,3 +1,5 @@
+import 'package:agri_mechanic/Authentication_pages/Services/loginpage.dart';
+import 'package:agri_mechanic/Screens/InitialScreen.dart';
 import 'package:agri_mechanic/Screens/Services/Form.dart';
 import 'package:agri_mechanic/Screens/Services/Userdata.dart';
 import 'package:agri_mechanic/uihelper.dart';
@@ -14,8 +16,8 @@ class mainscreen2 extends StatefulWidget {
 }
 
 class _mainscreen2State extends State<mainscreen2> {
-  Logout() {
-    FirebaseAuth.instance.signOut();
+  Logout() async {
+    await FirebaseAuth.instance.signOut();
   }
 
   @override
@@ -23,64 +25,88 @@ class _mainscreen2State extends State<mainscreen2> {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: kLightPrimaryBackgroundColor,
-      appBar: AppBar(
-        title: AnimatedTextKit(
-          animatedTexts: [
-            TypewriterAnimatedText(
-              'Welcome!!',
-              textStyle: const TextStyle(
-                  fontSize: 32.0,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black),
-              speed: const Duration(milliseconds: 500),
-            ),
-            TypewriterAnimatedText(
-              'Agro Mechanics...',
-              textStyle: const TextStyle(
-                  fontSize: 32.0,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.brown),
-              speed: const Duration(milliseconds: 500),
-            ),
-          ],
-          totalRepeatCount: 4,
-          pause: const Duration(milliseconds: 1000),
-          displayFullTextOnTap: true,
-          stopPauseOnTap: true,
+      body: Stack(children: [
+        Positioned(
+          top: 0,
+          left: 0,
+          right: 0,
+          child: Image(
+            image: const AssetImage("images/Logo.png"),
+            fit: BoxFit.cover,
+            height: size.width,
+            width: size.width,
+          ),
         ),
-        centerTitle: true,
-        actions: [
-          IconButton(
-              onPressed: () {
-                Logout();
+        Positioned(
+          bottom: -10,
+          left: -5,
+          right: -5,
+          child: Card(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(topLeft: Radius.circular(60))),
+            color: kLightSecondaryColor,
+            child: SizedBox(
+              height: size.height * 0.65,
+              width: size.width,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    'Are you a',
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleMedium!
+                        .copyWith(color: kLightSecondaryTextColor),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  CustomButton(() {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => mainScreen()));
+                  }, "New Customer", context),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    'Or',
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleSmall!
+                        .copyWith(color: kLightSecondaryTextColor),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  CustomButton(() {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => mainScreen()));
+                  }, "Old Customer", context),
+                  SizedBox(
+                    height: 20,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+        Positioned(
+            top: 30,
+            right: 10,
+            child: IconButton(
+              iconSize: 30,
+              icon: Icon(Icons.exit_to_app_outlined),
+              onPressed: () async {
+                await Logout();
+                Navigator.of(context)
+                    .pushReplacement(MaterialPageRoute(builder: (context) {
+                  return LoginPage();
+                }));
               },
-              icon: Icon(Icons.logout))
-        ],
-      ),
-      body: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Image(image: AssetImage("images/Logo.png")),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            UiHelper.CustomButton(() {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => mainScreen()));
-            }, "Old Customer", context),
-            SizedBox(
-              height: 20,
-            ),
-            UiHelper.CustomButton(() {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => mainScreen()));
-            }, "New Customer", context)
-          ]),
+            ))
+      ]),
     );
-    ;
   }
 }
