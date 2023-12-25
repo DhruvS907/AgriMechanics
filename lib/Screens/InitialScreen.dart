@@ -71,48 +71,6 @@ class InitialScreen extends StatelessWidget {
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 15),
-                    child: AnimatedTextKit(
-                      animatedTexts: [
-                        TypewriterAnimatedText(
-                          'Empowering Rural',
-                          textStyle: const TextStyle(
-                              fontSize: 32.0,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white),
-                          speed: const Duration(milliseconds: 200),
-                        ),
-                        TypewriterAnimatedText(
-                          'Repair Solutions:',
-                          textStyle: const TextStyle(
-                              fontSize: 32.0,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white),
-                          speed: const Duration(milliseconds: 200),
-                        ),
-                        TypewriterAnimatedText(
-                          'AGRIMechanics',
-                          textStyle: const TextStyle(
-                              fontSize: 32.0,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white),
-                          speed: const Duration(milliseconds: 200),
-                        ),
-                      ],
-                      totalRepeatCount: 4,
-                      pause: const Duration(milliseconds: 100),
-                      displayFullTextOnTap: true,
-                      stopPauseOnTap: true,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 40,
-                  ),
                   UiHelper.CustomButton(() {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => LoginPage()));
@@ -120,7 +78,7 @@ class InitialScreen extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  UiHelper.CustomButton(() {
+                  CustomButton(() {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => PhoneAuth()));
                   }, "Customer", context)

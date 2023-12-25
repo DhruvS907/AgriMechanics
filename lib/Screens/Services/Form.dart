@@ -256,7 +256,7 @@ class _mainScreenState extends State<mainScreen> {
                 SizedBox(
                   height: 20,
                 ),
-                UiHelper.CustomButton(() {
+                CustomButton(() {
                   SaveData(
                       namecontroller.text.toString(),
                       mobilenumbercontroller.text.toString(),

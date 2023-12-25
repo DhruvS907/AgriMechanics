@@ -24,8 +24,8 @@ void main() async {
               messagingSenderId: '239415832507',
               projectId: 'agri-mechanic'))
       : await Firebase.initializeApp();
-  runApp(MaterialApp(
-      debugShowCheckedModeBanner: false,
+  runApp(
+    MaterialApp(
       theme: kLightThemeData,
       home: StreamBuilder(
         stream: FirebaseAuth.instance.authStateChanges(),
@@ -36,5 +36,7 @@ void main() async {
             return InitialScreen();
           }
         },
-      )));
+      ),
+    ),
+  );
 }

@@ -16,6 +16,13 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  ValueNotifier<bool> isHidden = ValueNotifier<bool>(true);
+  @override
+  void dispose() {
+    super.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+  }
 
   login(String email, String password) async {
     if (email == "" || password == "") {
@@ -57,7 +64,7 @@ class _LoginPageState extends State<LoginPage> {
           left: -5,
           right: -5,
           child: Card(
-            shape: RoundedRectangleBorder(
+            shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.only(topLeft: Radius.circular(60))),
             color: kLightSecondaryColor,
             child: SizedBox(
@@ -68,16 +75,6 @@ class _LoginPageState extends State<LoginPage> {
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(
-                    "Welcome,",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
                   UiHelper.CustomTextField(emailController, "Email",
                       Icon(Icons.mail), false, context),
                   UiHelper.CustomTextField(passwordController, "Password",
@@ -113,12 +110,16 @@ class _LoginPageState extends State<LoginPage> {
                           style:
                               Theme.of(context).textTheme.titleMedium!.copyWith(
                                     color: kLightPrimaryBackgroundColor,
-                                  ),
+                                    decoration: TextDecoration.underline,
+                                    decorationColor:
+                                        kLightPrimaryBackgroundColor,
+                                    decorationThickness: 1),
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

@@ -1,3 +1,5 @@
+import 'package:agri_mechanic/Authentication_pages/Services/loginpage.dart';
+import 'package:agri_mechanic/Screens/InitialScreen.dart';
 import 'package:agri_mechanic/Screens/Services/Form.dart';
 import 'package:agri_mechanic/Screens/Services/Userdata.dart';
 import 'package:agri_mechanic/uihelper.dart';
@@ -14,8 +16,8 @@ class mainscreen2 extends StatefulWidget {
 }
 
 class _mainscreen2State extends State<mainscreen2> {
-  Logout() {
-    FirebaseAuth.instance.signOut();
+  Logout() async {
+    await FirebaseAuth.instance.signOut();
   }
 
   @override
@@ -63,14 +65,14 @@ class _mainscreen2State extends State<mainscreen2> {
           children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Image(image: AssetImage("assets/images/Logo.png")),
+              child: Image(image: AssetImage("images/Logo.png")),
             ),
             SizedBox(
               height: 20,
             ),
             UiHelper.CustomButton(() {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => customerData()));
+                  MaterialPageRoute(builder: (context) => mainScreen()));
             }, "Old Customer", context),
             SizedBox(
               height: 20,
@@ -81,6 +83,5 @@ class _mainscreen2State extends State<mainscreen2> {
             }, "New Customer", context)
           ]),
     );
-    ;
   }
 }

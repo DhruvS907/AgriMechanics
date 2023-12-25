@@ -1,6 +1,8 @@
 import 'package:agri_mechanic/Authentication_pages/Customer/OTPscreen.dart';
+import 'package:agri_mechanic/utils/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:agri_mechanic/uihelper.dart';
 
 class PhoneAuth extends StatefulWidget {
   const PhoneAuth({super.key});
@@ -10,22 +12,24 @@ class PhoneAuth extends StatefulWidget {
 }
 
 class _PhoneAuthState extends State<PhoneAuth> {
+  UiHelper _uiHelper = UiHelper();
   TextEditingController phonecontroller = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
         child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-          Image.asset("assets/images/PhoneAuthScreen.png"),
+          Image.asset("images/PhoneAuthScreen.png"),
           SizedBox(
             height: 50,
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25),
             child: Text(
-              "We will send you a One time password",
+              "We will send you a One time password on ",
               style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.bold,
@@ -38,7 +42,7 @@ class _PhoneAuthState extends State<PhoneAuth> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25),
                 child: Text(
-                  "on this mobile number",
+                  "this mobile number",
                   style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
