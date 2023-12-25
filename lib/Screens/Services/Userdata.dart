@@ -1,6 +1,5 @@
 import 'dart:math';
 
-
 import 'package:agri_mechanic/Screens/Services/SpecificUser.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -26,11 +25,6 @@ class _customerDataState extends State<customerData> {
           backgroundColor: Colors.grey[400],
         ),
         body: Stack(children: [
-          Image.asset(
-            'images/Nature1.jpg',
-            fit: BoxFit.cover,
-            height: size.height,
-          ),
           StreamBuilder(
               stream:
                   FirebaseFirestore.instance.collection("Users").snapshots(),
@@ -38,13 +32,15 @@ class _customerDataState extends State<customerData> {
                 if (snapshot.connectionState == ConnectionState.active) {
                   if (snapshot.hasData) {
                     return ListView.builder(
+                        scrollDirection: Axis.vertical,
                         itemCount: snapshot.data!.docs.length,
                         itemBuilder: (context, index) {
                           return Container(
+                            margin: EdgeInsets.only(top: 10, bottom: 10),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(25),
                                 border: Border.all(
-                                    color: Colors.black, width: 0.5)),
+                                    color: Colors.green, width: 0.5)),
                             child: ListTile(
                               onTap: () {
                                 Navigator.push(

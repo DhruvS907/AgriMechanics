@@ -37,6 +37,9 @@ class _mainScreenState extends State<mainScreen> {
       String equipment_exchange) async {
     if (Name == "" || Contact_Number == "" || place == "") {
       UiHelper.CustomAlertBox(context, "Enter Desired Fields");
+    } else if (Contact_Number.length != 10) {
+      return UiHelper.CustomAlertBox(
+          context, "Please Enter a valid Mobile Number");
     } else {
       FirebaseFirestore.instance.collection("Users").doc(Name).set({
         "Name": Name,

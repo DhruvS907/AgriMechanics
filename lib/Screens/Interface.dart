@@ -63,14 +63,14 @@ class _mainscreen2State extends State<mainscreen2> {
           children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Image(image: AssetImage("images/Logo.png")),
+              child: Image(image: AssetImage("assets/images/Logo.png")),
             ),
             SizedBox(
               height: 20,
             ),
             UiHelper.CustomButton(() {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => mainScreen()));
+                  MaterialPageRoute(builder: (context) => customerData()));
             }, "Old Customer", context),
             SizedBox(
               height: 20,

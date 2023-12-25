@@ -46,7 +46,7 @@ class _LoginPageState extends State<LoginPage> {
           left: 0,
           right: 0,
           child: Image(
-            image: const AssetImage("images/Logo.png"),
+            image: const AssetImage("assets/images/Logo.png"),
             fit: BoxFit.cover,
             height: size.width,
             width: size.width,
@@ -68,6 +68,16 @@ class _LoginPageState extends State<LoginPage> {
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  Text(
+                    "Welcome,",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
                   UiHelper.CustomTextField(emailController, "Email",
                       Icon(Icons.mail), false, context),
                   UiHelper.CustomTextField(passwordController, "Password",

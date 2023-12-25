@@ -25,6 +25,7 @@ void main() async {
               projectId: 'agri-mechanic'))
       : await Firebase.initializeApp();
   runApp(MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: kLightThemeData,
       home: StreamBuilder(
         stream: FirebaseAuth.instance.authStateChanges(),
