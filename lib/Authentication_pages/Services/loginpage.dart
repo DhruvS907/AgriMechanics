@@ -75,11 +75,21 @@ class _LoginPageState extends State<LoginPage> {
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  UiHelper.CustomTextField(emailController, "Email",
-                      Icon(Icons.mail), false, context),
-                  UiHelper.CustomTextField(passwordController, "Password",
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    "Welcome,",
+                    style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 30,
+                        color: Colors.white),
+                  ),
+                  CustomTextField(emailController, "Email", Icon(Icons.mail),
+                      false, context),
+                  CustomTextField(passwordController, "Password",
                       Icon(Icons.password), true, context),
-                  UiHelper.CustomButton(() async {
+                  CustomButton(() async {
                     login(
                       emailController.text.toString(),
                       passwordController.text.toString(),
@@ -107,19 +117,19 @@ class _LoginPageState extends State<LoginPage> {
                         },
                         child: Text(
                           "Sign Up",
-                          style:
-                              Theme.of(context).textTheme.titleMedium!.copyWith(
-                                    color: kLightPrimaryBackgroundColor,
-                                    decoration: TextDecoration.underline,
-                                    decorationColor:
-                                        kLightPrimaryBackgroundColor,
-                                    decorationThickness: 1),
-                          ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium!
+                              .copyWith(
+                                  color: kLightPrimaryBackgroundColor,
+                                  decoration: TextDecoration.underline,
+                                  decorationColor: kLightPrimaryBackgroundColor,
+                                  decorationThickness: 1),
                         ),
-                      ],
-                    ),
-                  ],
-                ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
           ),

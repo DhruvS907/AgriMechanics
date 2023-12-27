@@ -3,10 +3,13 @@ import 'package:agri_mechanic/Screens/InitialScreen.dart';
 import 'package:agri_mechanic/Screens/Services/Form.dart';
 import 'package:agri_mechanic/Screens/Services/Userdata.dart';
 import 'package:agri_mechanic/uihelper.dart';
+import 'package:agri_mechanic/uihelper.dart';
 import 'package:agri_mechanic/utils/constants.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+import '../uihelper.dart';
 
 class mainscreen2 extends StatefulWidget {
   const mainscreen2({super.key});
@@ -31,15 +34,15 @@ class _mainscreen2State extends State<mainscreen2> {
             TypewriterAnimatedText(
               'Welcome!!',
               textStyle: const TextStyle(
-                  fontSize: 32.0,
+                  fontSize: 26.0,
                   fontWeight: FontWeight.bold,
                   color: Colors.black),
               speed: const Duration(milliseconds: 500),
             ),
             TypewriterAnimatedText(
-              'Agro Mechanics...',
+              'AGRIMechanics...',
               textStyle: const TextStyle(
-                  fontSize: 32.0,
+                  fontSize: 26.0,
                   fontWeight: FontWeight.bold,
                   color: Colors.brown),
               speed: const Duration(milliseconds: 500),
@@ -65,19 +68,19 @@ class _mainscreen2State extends State<mainscreen2> {
           children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Image(image: AssetImage("images/Logo.png")),
+              child: Image(image: AssetImage("assets/images/Logo.png")),
             ),
             SizedBox(
               height: 20,
             ),
-            UiHelper.CustomButton(() {
+            CustomButton(() {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => mainScreen()));
-            }, "Old Customer", context),
+                  MaterialPageRoute(builder: (context) => customerData()));
+            }, "Today's Customer", context),
             SizedBox(
               height: 20,
             ),
-            UiHelper.CustomButton(() {
+            CustomButton(() {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => mainScreen()));
             }, "New Customer", context)

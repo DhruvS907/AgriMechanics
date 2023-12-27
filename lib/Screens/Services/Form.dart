@@ -1,9 +1,14 @@
+// ignore_for_file: unused_import
+
 import 'package:agri_mechanic/Authentication_pages/Services/loginpage.dart';
+import 'package:agri_mechanic/Screens/Interface.dart';
 import 'package:agri_mechanic/uihelper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:date_field/date_field.dart';
+import 'package:intl/intl.dart';
 
 class mainScreen extends StatefulWidget {
   const mainScreen({super.key});
@@ -51,9 +56,12 @@ class _mainScreenState extends State<mainScreen> {
         "Equipment needed": equipments_needed,
         "Knowledge about Government Subsidy": govt_sub,
         "Equipment on lease": equipment_lease,
-        "Equipment to exchange": equipment_exchange
+        "Equipment to exchange": equipment_exchange,
+        "Date": DateFormat('yyyy-MM-dd').format(DateTime.now()),
       }).then((value) {
         UiHelper.CustomAlertBox(context, "Data Inserted");
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => mainscreen2()));
       });
     }
   }

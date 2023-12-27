@@ -22,7 +22,7 @@ class _PhoneAuthState extends State<PhoneAuth> {
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
         child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-          Image.asset("images/PhoneAuthScreen.png"),
+          Image.asset("assets/images/PhoneAuthScreen.png"),
           SizedBox(
             height: 50,
           ),
@@ -73,7 +73,9 @@ class _PhoneAuthState extends State<PhoneAuth> {
               onPressed: () async {
                 FirebaseAuth.instance.verifyPhoneNumber(
                     verificationCompleted: (PhoneAuthCredential credential) {},
-                    verificationFailed: (FirebaseAuthException ex) {},
+                    verificationFailed: (FirebaseAuthException ex) {
+                      UiHelper.CustomAlertBox(context, "${ex.code.toString()}");
+                    },
                     codeSent: (String verificationId, int? resendtoken) {
                       Navigator.push(
                           context,

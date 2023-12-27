@@ -71,7 +71,40 @@ class InitialScreen extends StatelessWidget {
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  UiHelper.CustomButton(() {
+                  SizedBox(
+                    height: 40,
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                    child: SizedBox(
+                      height: 100,
+                      child: AnimatedTextKit(
+                        animatedTexts: [
+                          TypewriterAnimatedText(
+                            'Transforming Agri-Tech Services:',
+                            textStyle: const TextStyle(
+                                fontSize: 25.0,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
+                            speed: const Duration(milliseconds: 200),
+                          ),
+                          TypewriterAnimatedText(
+                            'Mechanizing Rural Progress.',
+                            textStyle: const TextStyle(
+                                fontSize: 25.0,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
+                            speed: const Duration(milliseconds: 200),
+                          ),
+                        ],
+                        totalRepeatCount: 4,
+                        pause: const Duration(milliseconds: 1000),
+                        displayFullTextOnTap: true,
+                        stopPauseOnTap: true,
+                      ),
+                    ),
+                  ),
+                  CustomButton(() {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => LoginPage()));
                   }, "Services", context),

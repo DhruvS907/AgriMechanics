@@ -5,6 +5,11 @@ import 'dart:io';
 
 import 'package:agri_mechanic/Authentication_pages/Customer/OTPscreen.dart';
 import 'package:agri_mechanic/Authentication_pages/Customer/OtpAuthentication.dart';
+import 'package:agri_mechanic/Screens/Customer/Screen1.dart';
+import 'package:agri_mechanic/Screens/Customer/SeeyourServices.dart';
+import 'package:agri_mechanic/Screens/Customer/SellyourImplement.dart';
+import 'package:agri_mechanic/Screens/Customer/ServiceScheduling.dart';
+import 'package:agri_mechanic/Screens/Customer/details.dart';
 import 'package:agri_mechanic/Screens/Services/Form.dart';
 import 'package:agri_mechanic/Screens/InitialScreen.dart';
 import 'package:agri_mechanic/Screens/Interface.dart';
@@ -26,14 +31,17 @@ void main() async {
       : await Firebase.initializeApp();
   runApp(
     MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: kLightThemeData,
       home: StreamBuilder(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return mainscreen2();
+            return mainScreen();
           } else {
-            return InitialScreen();
+            return seeyourservices(
+              Contact_Number: "8305070461",
+            );
           }
         },
       ),
