@@ -44,9 +44,9 @@ class _HomePageState extends State<HomePage> {
       ]),
       body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         CustomTextField(firstnamecontroller, "Your First Name",
-            Icon(Icons.person), false, context),
+            Icon(Icons.person), false, context, null),
         CustomTextField(lastnamecontroller, "Your Last Name",
-            Icon(Icons.person), false, context),
+            Icon(Icons.person), false, context, null),
         CustomButton(() {
           saveData(firstnamecontroller.text.toString(),
               lastnamecontroller.text.toString());

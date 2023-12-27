@@ -5,18 +5,21 @@ import 'package:flutter/material.dart';
 
 class CustomTextField extends StatelessWidget {
   CustomTextField(TextEditingController controller, String text, Icon icondata,
-      bool tohide, BuildContext context,
+      bool tohide, BuildContext context, bool? isNumericKeyboard,
       {super.key})
       : context = context,
         text = text,
         icondata = icondata,
         tohide = tohide,
-        controller = controller;
+        controller = controller,
+        isNumericKeyboard = isNumericKeyboard ?? false;
+
   TextEditingController controller;
   String text;
   Icon icondata;
   bool tohide;
   BuildContext context;
+  bool isNumericKeyboard;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -24,6 +27,7 @@ class CustomTextField extends StatelessWidget {
       child: TextField(
         controller: controller,
         obscureText: tohide,
+        keyboardType: isNumericKeyboard ? TextInputType.number : null,
         style: Theme.of(context).textTheme.bodyLarge!.copyWith(
             color: kprimaryTextColor,
             decoration: TextDecoration.underline,

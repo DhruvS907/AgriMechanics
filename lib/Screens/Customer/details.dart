@@ -50,110 +50,76 @@ class _detailsState extends State<details> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(children: [
-          Container(
-            width: double.infinity,
-            height: 200,
-            color: Colors.black,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  height: 50,
-                ),
-                Text(
-                  "Welcome",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 45,
-                  ),
-                ),
-                // Padding(
-                //   padding: const EdgeInsets.fromLTRB(80, 10, 80, 25),
-                //   child: Container(
-                //     height: 200,
-                //     width: 200,
-                //     child: Image(
-                //       image: AssetImage("assets/images/Logo1.png"),
-                //       fit: BoxFit.cover,
-                //     ),
-                //     decoration: BoxDecoration(
-                //       border: Border.all(
-                //           color: const Color.fromARGB(255, 0, 113, 4), width: 4),
-                //     ),
-                //   ),
-                // ),
-              ],
-            ),
+      body: Stack(children: [
+        Positioned(
+          top: 0,
+          left: 0,
+          right: 0,
+          child: Image(
+            image: const AssetImage("assets/images/Logo.png"),
+            fit: BoxFit.cover,
+            height: size.width,
+            width: size.width,
           ),
-          Card(
+        ),
+        Positioned(
+          bottom: -10,
+          left: -5,
+          right: -5,
+          child: Card(
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(topLeft: Radius.circular(60))),
             color: kLightSecondaryColor,
             child: SizedBox(
-              height: size.height * 0.745,
+              height: size.height * 0.65,
               width: size.width,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
+              child: SingleChildScrollView(
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Please Provide us some of your details",
-                          style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.white),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "to proceed",
-                          style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.white),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    CustomTextField(namecontroller, "Name", Icon(Icons.person),
-                        false, context),
-                    CustomTextField(contact_numbercontroller, "Contact Number",
-                        Icon(Icons.phone), false, context),
-                    CustomTextField(passwordcontroller, "Password",
-                        Icon(Icons.password), true, context),
-                    CustomTextField(addresscontroller, "Address",
-                        Icon(Icons.place), false, context),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    CustomButton(() {
-                      saveDetails(
-                          namecontroller.text.toString(),
-                          contact_numbercontroller.text.toString(),
-                          passwordcontroller.text.toString(),
-                          addresscontroller.text.toString());
-                    }, "Save Your Data", context)
-                  ],
-                ),
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                        height: 40,
+                      ),
+                      Text(
+                        "Please provide us with some of your\n details to proceed with",
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyLarge!
+                            .copyWith(color: kLightPrimaryBackgroundColor),
+                      ),
+                      CustomTextField(namecontroller, "Name",
+                          Icon(Icons.person), false, context, null),
+                      CustomTextField(
+                          contact_numbercontroller,
+                          "Contact Number",
+                          Icon(Icons.phone),
+                          false,
+                          context,
+                          null),
+                      CustomTextField(passwordcontroller, "Password",
+                          Icon(Icons.password), true, context, null),
+                      CustomTextField(addresscontroller, "Address",
+                          Icon(Icons.place), false, context, null),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      CustomButton(() {
+                        saveDetails(
+                            namecontroller.text.toString(),
+                            contact_numbercontroller.text.toString(),
+                            passwordcontroller.text.toString(),
+                            addresscontroller.text.toString());
+                      }, "Save Your Data", context),
+                      SizedBox(
+                        height: 40,
+                      ),
+                    ]),
               ),
             ),
-          )
-        ]),
-      ),
+          ),
+        ),
+      ]),
     );
   }
 }

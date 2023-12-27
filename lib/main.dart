@@ -27,7 +27,8 @@ void main() async {
               apiKey: 'AIzaSyBkusTSCFwOGR4RH02xQKfaGUwYGODPztE',
               appId: '1:239415832507:android:ed86353a0bba923775de9e',
               messagingSenderId: '239415832507',
-              projectId: 'agri-mechanic'))
+              projectId: 'agri-mechanic',
+              storageBucket: 'gs://agri-mechanic.appspot.com'))
       : await Firebase.initializeApp();
   runApp(
     MaterialApp(

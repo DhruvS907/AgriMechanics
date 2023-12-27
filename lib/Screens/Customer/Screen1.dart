@@ -19,102 +19,83 @@ class _Screen1State extends State<Screen1> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      body: Column(children: [
-        Container(
-          color: Colors.black,
-          height: 200,
-          width: double.infinity,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(
-                height: 80,
-              ),
-              Text(
-                "Welcome",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 45,
-                ),
-              ),
-              Text(
-                "${widget.UserName}",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 30,
-                ),
-              ),
-            ],
+      body: Stack(children: [
+        Positioned(
+          top: 0,
+          left: 0,
+          right: 0,
+          child: Image(
+            image: const AssetImage("assets/images/Logo.png"),
+            fit: BoxFit.cover,
+            height: size.width,
+            width: size.width,
           ),
         ),
-        Card(
-          color: kLightSecondaryColor,
-          child: SizedBox(
-            height: size.height * 0.74,
-            width: size.width,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SizedBox(
-                  height: 40,
-                ),
-                Container(
-                  height: 200,
-                  width: 200,
-                  child: Image(
-                    image: AssetImage("assets/images/Logo1.png"),
-                    fit: BoxFit.cover,
-                  ),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black, width: 2),
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  "Choose any one of our following services: ",
-                  style: TextStyle(fontSize: 15, color: Colors.white),
-                ),
-                SizedBox(
-                  height: 40,
-                ),
-                CustomButton(() {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ServiceScheduling(
-                                Contact_Number: widget.Contact_Number,
-                                Name: widget.UserName,
-                              )));
-                }, "Service Scheduling", context),
-                SizedBox(
-                  height: 20,
-                ),
-                CustomButton(() {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => SellImplement()));
-                }, "Sell Your Implement", context),
-                SizedBox(
-                  height: 20,
-                ),
-                CustomButton(() {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => seeyourservices(
-                              Contact_Number: widget.Contact_Number)));
-                }, "See your Services", context),
-                SizedBox(
-                  height: 20,
-                ),
-              ],
+        Positioned(
+          bottom: -10,
+          left: -5,
+          right: -5,
+          child: Card(
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(topLeft: Radius.circular(60))),
+            color: kLightSecondaryColor,
+            child: SizedBox(
+              height: size.height * 0.65,
+              width: size.width,
+              child: SingleChildScrollView(
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                        height: 40,
+                      ),
+                      Text(
+                        "Choose any one of our following \nservices :",
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyLarge!
+                            .copyWith(color: kLightPrimaryBackgroundColor),
+                      ),
+                      SizedBox(
+                        height: 40,
+                      ),
+                      CustomButton(() {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ServiceScheduling(
+                                      Contact_Number: widget.Contact_Number,
+                                      Name: widget.UserName,
+                                    )));
+                      }, "Service Scheduling", context),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      CustomButton(() {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SellImplement()));
+                      }, "Sell Your Implement", context),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      CustomButton(() {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => seeyourservices(
+                                    Contact_Number: widget.Contact_Number)));
+                      }, "See your Services", context),
+                      SizedBox(
+                        height: 20,
+                      ),
+                    ]),
+              ),
             ),
           ),
-        )
+        ),
       ]),
     );
   }

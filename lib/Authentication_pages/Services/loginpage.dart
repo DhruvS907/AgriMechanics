@@ -71,24 +71,70 @@ class _LoginPageState extends State<LoginPage> {
               height: size.height * 0.65,
               width: size.width,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(
-                    height: 20,
+                    height: 40,
                   ),
-                  Text(
-                    "Welcome,",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 30,
-                        color: Colors.white),
+                  Text("Login",
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineLarge!
+                          .copyWith(
+                              color: kLightPrimaryBackgroundColor,
+                              fontWeight: FontWeight.w700)),
+                  SizedBox(
+                    height: 30,
                   ),
                   CustomTextField(emailController, "Email", Icon(Icons.mail),
-                      false, context),
-                  CustomTextField(passwordController, "Password",
-                      Icon(Icons.password), true, context),
+                      false, context, null),
+                  ValueListenableBuilder(
+                      valueListenable: isHidden,
+                      builder: (context, value, _) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 25, vertical: 15),
+                          child: TextField(
+                            controller: passwordController,
+                            obscureText: value,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyLarge!
+                                .copyWith(
+                                    color: kprimaryTextColor,
+                                    decoration: TextDecoration.underline,
+                                    decorationThickness: 0),
+                            decoration: InputDecoration(
+                              labelText: 'Password',
+                              labelStyle: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge!
+                                  .copyWith(color: kLightSecondaryTextColor),
+                              suffixIcon: IconButton(
+                                  onPressed: () {
+                                    isHidden.value = !isHidden.value;
+                                  },
+                                  icon: value
+                                      ? Icon(Icons.visibility_off)
+                                      : Icon(Icons.visibility)),
+                              suffixIconColor: kLightSecondaryTextColor,
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(25),
+                                  borderSide: const BorderSide(
+                                      color: kLightPrimaryBackgroundColor)),
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(25),
+                                  borderSide: const BorderSide(
+                                      color: kLightSecondaryTextColor)),
+                            ),
+                          ),
+                        );
+                      }),
+                  SizedBox(
+                    height: 20,
+                  ),
                   CustomButton(() async {
                     login(
                       emailController.text.toString(),
@@ -96,20 +142,20 @@ class _LoginPageState extends State<LoginPage> {
                     );
                   }, "Login", context),
                   const SizedBox(height: 10),
-                  Row(
+                  Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Or",
+                        "Don't have an account ?",
                         style: Theme.of(context)
                             .textTheme
-                            .bodySmall!
+                            .bodyMedium!
                             .copyWith(color: kLightSecondaryTextColor),
                       ),
                       TextButton(
                         onPressed: () {
-                          Navigator.push(
+                          Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => SignUppage()),

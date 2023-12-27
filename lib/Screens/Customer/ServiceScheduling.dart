@@ -55,139 +55,118 @@ class _ServiceSchedulingState extends State<ServiceScheduling> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              height: 150,
-              width: double.infinity,
-              color: Colors.black,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Text(
-                    "Schedule Services",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 35,
-                    ),
-                  )
-                ],
-              ),
-            ),
-            Card(
-              color: kLightSecondaryColor,
-              child: SizedBox(
-                height: size.height * 0.82,
-                width: size.width,
+      body: Stack(children: [
+        Positioned(
+          top: 0,
+          left: 0,
+          right: 0,
+          child: Image(
+            image: const AssetImage("assets/images/Logo.png"),
+            fit: BoxFit.cover,
+            height: size.width,
+            width: size.width,
+          ),
+        ),
+        Positioned(
+          bottom: -10,
+          left: -5,
+          right: -5,
+          child: Card(
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(topLeft: Radius.circular(60))),
+            color: kLightSecondaryColor,
+            child: SizedBox(
+              height: size.height * 0.65,
+              width: size.width,
+              child: SingleChildScrollView(
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      height: 40,
-                    ),
-                    Container(
-                      height: 200,
-                      width: 200,
-                      child: Image(
-                        image: AssetImage("assets/images/Logo1.png"),
-                        fit: BoxFit.cover,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                        height: 40,
                       ),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black, width: 2),
+                      Text(
+                        "Choose any one of our following \nservices :",
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyLarge!
+                            .copyWith(color: kLightPrimaryBackgroundColor),
                       ),
-                    ),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    Text(
-                      "Fill the following details to Schedule your service",
-                      style: TextStyle(fontSize: 15, color: Colors.white),
-                    ),
-                    SizedBox(
-                      height: 40,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Date Choosen: ",
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyLarge!
-                                .copyWith(
-                                    color: kprimaryTextColor,
-                                    decoration: TextDecoration.underline,
-                                    decorationThickness: 0),
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Container(
-                            height: 50,
-                            width: 113,
-                            decoration: BoxDecoration(
-                                border:
-                                    Border.all(color: Colors.black, width: 2),
-                                borderRadius: BorderRadius.circular(25)),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                "${_dateTime}",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyLarge!
-                                    .copyWith(
-                                        color: kprimaryTextColor,
-                                        decoration: TextDecoration.underline,
-                                        decorationThickness: 0),
+                      SizedBox(
+                        height: 40,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Choose Date :",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge!
+                                  .copyWith(
+                                      color: kprimaryTextColor,
+                                      decoration: TextDecoration.underline,
+                                      decorationThickness: 0),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            InkWell(
+                              onTap: () {
+                                _showDatePicker();
+                              },
+                              child: Container(
+                                height: 50,
+                                width: 113,
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: kLightPrimaryBackgroundColor,
+                                        width: 2),
+                                    borderRadius: BorderRadius.circular(25)),
+                                child: Center(
+                                  child: Text(
+                                    "${_dateTime}",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall!
+                                        .copyWith(
+                                            color: kprimaryTextColor,
+                                            decoration:
+                                                TextDecoration.underline,
+                                            decorationThickness: 0),
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
-                          SizedBox(
-                            width: 40,
-                          ),
-                          CircleAvatar(
-                            backgroundColor: Colors.white,
-                            child: IconButton(
-                                color: Colors.black,
-                                onPressed: () {
-                                  _showDatePicker();
-                                },
-                                icon: Icon(Icons.date_range)),
-                          )
-                        ],
+                            SizedBox(
+                              width: 40,
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    CustomTextField(nameofplacecontroller, "Name of Place",
-                        Icon(Icons.agriculture), false, context),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    CustomButton(() async {
-                      await scheduleServices(
-                          _dateTime, nameofplacecontroller.text.toString());
-                      UiHelper.CustomAlertBox(
-                          context, "Your Service Has been scheduled");
-                    }, "Confirm", context)
-                  ],
-                ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      CustomTextField(nameofplacecontroller, "Name of Place",
+                          Icon(Icons.agriculture), false, context, null),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      CustomButton(() async {
+                        await scheduleServices(
+                            _dateTime, nameofplacecontroller.text.toString());
+                        UiHelper.CustomAlertBox(
+                            context, "Your Service has been scheduled");
+                      }, "Confirm", context)
+                    ]),
               ),
-            )
-          ],
+            ),
+          ),
         ),
-      ),
+      ]),
     );
   }
 }

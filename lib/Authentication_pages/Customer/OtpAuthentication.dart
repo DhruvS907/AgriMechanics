@@ -18,78 +18,118 @@ class _PhoneAuthState extends State<PhoneAuth> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
-        child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-          Image.asset("assets/images/PhoneAuthScreen.png"),
-          SizedBox(
-            height: 50,
+      body: Stack(children: [
+        Positioned(
+          top: 0,
+          left: 0,
+          right: 0,
+          child: Image(
+            image: const AssetImage("assets/images/Logo.png"),
+            fit: BoxFit.cover,
+            height: size.width,
+            width: size.width,
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25),
-            child: Text(
-              "We will send you a One time password on ",
-              style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.purple),
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25),
-                child: Text(
-                  "this mobile number",
-                  style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.purple),
-                ),
+        ),
+        Positioned(
+          bottom: -10,
+          left: -5,
+          right: -5,
+          child: Card(
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(topLeft: Radius.circular(60))),
+            color: kLightSecondaryColor,
+            child: SizedBox(
+              height: size.height * 0.65,
+              width: size.width,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 40,
+                  ),
+                  Text("Sign In",
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineMedium!
+                          .copyWith(
+                              color: kLightPrimaryBackgroundColor,
+                              fontWeight: FontWeight.w700)),
+                  SizedBox(
+                    height: 40,
+                  ),
+                  Text("We will send an OTP on",
+                      textAlign: TextAlign.start,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium!
+                          .copyWith(color: kLightPrimaryBackgroundColor)),
+                  CustomTextField(phonecontroller, 'Enter phone number',
+                      Icon(Icons.call), false, context, true),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  CustomButton(() async {
+                    FirebaseAuth.instance.verifyPhoneNumber(
+                        verificationCompleted:
+                            (PhoneAuthCredential credential) {},
+                        verificationFailed: (FirebaseAuthException ex) {
+                          UiHelper.CustomAlertBox(
+                              context, "${ex.code.toString()}");
+                        },
+                        codeSent: (String verificationId, int? resendtoken) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => OTPScreen(
+                                        verificationId: verificationId,
+                                      )));
+                        },
+                        codeAutoRetrievalTimeout: (String verificationId) {},
+                        phoneNumber: "+91" + phonecontroller.text.toString());
+                  }, 'Send OTP', context)
+                ],
               ),
-            ],
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: TextField(
-              controller: phonecontroller,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                  hintText: "Enter Phone Number",
-                  suffixIcon: Icon(Icons.phone),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(25))),
             ),
           ),
-          SizedBox(
-            height: 30,
-          ),
-          ElevatedButton(
-              onPressed: () async {
-                FirebaseAuth.instance.verifyPhoneNumber(
-                    verificationCompleted: (PhoneAuthCredential credential) {},
-                    verificationFailed: (FirebaseAuthException ex) {
-                      UiHelper.CustomAlertBox(context, "${ex.code.toString()}");
-                    },
-                    codeSent: (String verificationId, int? resendtoken) {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => OTPScreen(
-                                    verificationId: verificationId,
-                                  )));
-                    },
-                    codeAutoRetrievalTimeout: (String verificationId) {},
-                    phoneNumber: "+91" + phonecontroller.text.toString());
-              },
-              child: Text("Verify Phone Number"))
-        ]),
-      ),
+        ),
+      ]),
     );
   }
 }
+  // Padding(
+  //           padding: const EdgeInsets.symmetric(horizontal: 15),
+  //           child: TextField(
+  //             controller: phonecontroller,
+  //             keyboardType: TextInputType.number,
+  //             decoration: InputDecoration(
+  //                 hintText: "Enter Phone Number",
+  //                 suffixIcon: Icon(Icons.phone),
+  //                 border: OutlineInputBorder(
+  //                     borderRadius: BorderRadius.circular(25))),
+  //           ),
+  //         ),
+  //         SizedBox(
+  //           height: 30,
+  //         ),
+  //         ElevatedButton(
+  //             onPressed: () async {
+  //               FirebaseAuth.instance.verifyPhoneNumber(
+  //                   verificationCompleted: (PhoneAuthCredential credential) {},
+  //                   verificationFailed: (FirebaseAuthException ex) {
+  //                     UiHelper.CustomAlertBox(context, "${ex.code.toString()}");
+  //                   },
+  //                   codeSent: (String verificationId, int? resendtoken) {
+  //                     Navigator.push(
+  //                         context,
+  //                         MaterialPageRoute(
+  //                             builder: (context) => OTPScreen(
+  //                                   verificationId: verificationId,
+  //                                 )));
+  //                   },
+  //                   codeAutoRetrievalTimeout: (String verificationId) {},
+  //                   phoneNumber: "+91" + phonecontroller.text.toString());
+  //             },
+  //             child: Text("Verify Phone Number"))
+        
