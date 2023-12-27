@@ -13,34 +13,6 @@ class InitialScreen extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: kLightPrimaryBackgroundColor,
-      // appBar: AppBar(
-      //   title: AnimatedTextKit(
-      //     animatedTexts: [
-      //       TypewriterAnimatedText(
-      //         'Welcome!!',
-      //         textStyle: const TextStyle(
-      //             fontSize: 32.0,
-      //             fontWeight: FontWeight.bold,
-      //             color: Colors.black),
-      //         speed: const Duration(milliseconds: 500),
-      //       ),
-      //       TypewriterAnimatedText(
-      //         'Agro Mechanics...',
-      //         textStyle: const TextStyle(
-      //             fontSize: 32.0,
-      //             fontWeight: FontWeight.bold,
-      //             color: Colors.brown),
-      //         speed: const Duration(milliseconds: 500),
-      //       ),
-      //     ],
-      //     totalRepeatCount: 4,
-      //     pause: const Duration(milliseconds: 1000),
-      //     displayFullTextOnTap: true,
-      //     stopPauseOnTap: true,
-      //   ),
-      //   centerTitle: true,
-      // ),
-
       body: Stack(children: [
         Positioned(
           top: 0,
@@ -58,30 +30,66 @@ class InitialScreen extends StatelessWidget {
           left: -5,
           right: -5,
           child: Card(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(60),
-                    topLeft: Radius.circular(60))),
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(topLeft: Radius.circular(60))),
             color: kLightSecondaryColor,
             child: SizedBox(
               height: size.height * 0.65,
               width: size.width,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  UiHelper.CustomButton(() {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => LoginPage()));
-                  }, "Services", context),
-                  const SizedBox(
-                    height: 20,
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.max,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height: 40,
+                        ),
+                        Text("Welcome !",
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineLarge!
+                                .copyWith(
+                                    color: kLightPrimaryBackgroundColor,
+                                    fontWeight: FontWeight.w700)),
+                        SizedBox(
+                          height: 40,
+                        ),
+                        CustomButton(() {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => LoginPage()));
+                        }, "Services", context),
+                        const SizedBox(
+                          height: 40,
+                        ),
+                        CustomButton(() {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => PhoneAuth()));
+                        }, "Customer", context),
+                        const SizedBox(
+                          height: 40,
+                        ),
+                        Text(
+                            "\"Transforming Agri-Tech Services:\n Mechanizing Rural Progress.\"",
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(color: kLightPrimaryBackgroundColor)),
+                        SizedBox(
+                          height: 40,
+                        )
+                      ],
+                    ),
                   ),
-                  CustomButton(() {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => PhoneAuth()));
-                  }, "Customer", context)
                 ],
               ),
             ),
@@ -91,3 +99,20 @@ class InitialScreen extends StatelessWidget {
     );
   }
 }
+ 
+// TypewriterAnimatedText(
+//                       'Transforming Agri-Tech Services:',
+//                       textStyle: const TextStyle(
+//                           fontSize: 25.0,
+//                           fontWeight: FontWeight.bold,
+//                           color: Colors.white),
+//                       speed: const Duration(milliseconds: 200),
+//                     ),
+//                     TypewriterAnimatedText(
+//                       'Mechanizing Rural Progress.',
+//                       textStyle: const TextStyle(
+//                           fontSize: 25.0,
+//                           fontWeight: FontWeight.bold,
+//                           color: Colors.white),
+//                       speed: const Duration(milliseconds: 200),
+//                     ),

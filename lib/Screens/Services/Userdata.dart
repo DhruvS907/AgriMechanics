@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:agri_mechanic/Screens/Services/SpecificUser.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class customerData extends StatefulWidget {
   const customerData({super.key});
@@ -26,8 +27,12 @@ class _customerDataState extends State<customerData> {
         ),
         body: Stack(children: [
           StreamBuilder(
-              stream:
-                  FirebaseFirestore.instance.collection("Users").snapshots(),
+              stream: FirebaseFirestore.instance
+                  .collection("Users")
+                  .where("Date",
+                      isEqualTo:
+                          DateFormat('yyyy-MM-dd').format(DateTime.now()))
+                  .snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.active) {
                   if (snapshot.hasData) {
@@ -36,7 +41,8 @@ class _customerDataState extends State<customerData> {
                         itemCount: snapshot.data!.docs.length,
                         itemBuilder: (context, index) {
                           return Container(
-                            margin: EdgeInsets.only(top: 10, bottom: 10),
+                            margin: EdgeInsets.only(
+                                top: 10, bottom: 10, right: 10, left: 10),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(25),
                                 border: Border.all(
