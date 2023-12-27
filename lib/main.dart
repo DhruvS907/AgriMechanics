@@ -37,11 +37,9 @@ void main() async {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return mainScreen();
+            return mainscreen2();
           } else {
-            return seeyourservices(
-              Contact_Number: "8305070461",
-            );
+            return InitialScreen();
           }
         },
       ),

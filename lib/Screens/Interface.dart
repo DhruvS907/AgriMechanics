@@ -58,6 +58,8 @@ class _mainscreen2State extends State<mainscreen2> {
           IconButton(
               onPressed: () {
                 Logout();
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => InitialScreen()));
               },
               icon: Icon(Icons.logout))
         ],
