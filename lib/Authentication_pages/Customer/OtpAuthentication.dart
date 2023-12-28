@@ -1,4 +1,5 @@
 import 'package:agri_mechanic/Authentication_pages/Customer/OTPscreen.dart';
+import 'package:agri_mechanic/Authentication_pages/Customer/Password.dart';
 import 'package:agri_mechanic/utils/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -84,11 +85,47 @@ class _PhoneAuthState extends State<PhoneAuth> {
                               MaterialPageRoute(
                                   builder: (context) => OTPScreen(
                                         verificationId: verificationId,
+                                        Contact_Number:
+                                            phonecontroller.text.toString(),
                                       )));
                         },
                         codeAutoRetrievalTimeout: (String verificationId) {},
                         phoneNumber: "+91" + phonecontroller.text.toString());
-                  }, 'Send OTP', context)
+                  }, 'Send OTP', context),
+                  const SizedBox(height: 10),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Already have an account ?",
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyMedium!
+                            .copyWith(color: kLightSecondaryTextColor),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => passwordauthentication()),
+                          );
+                        },
+                        child: Text(
+                          "Sign In",
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium!
+                              .copyWith(
+                                  color: kLightPrimaryBackgroundColor,
+                                  decoration: TextDecoration.underline,
+                                  decorationColor: kLightPrimaryBackgroundColor,
+                                  decorationThickness: 1),
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),

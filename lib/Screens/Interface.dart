@@ -2,6 +2,7 @@ import 'package:agri_mechanic/Authentication_pages/Services/loginpage.dart';
 import 'package:agri_mechanic/Screens/InitialScreen.dart';
 import 'package:agri_mechanic/Screens/Services/Form.dart';
 import 'package:agri_mechanic/Screens/Services/Userdata.dart';
+import 'package:agri_mechanic/Screens/Services/implementstosell.dart';
 import 'package:agri_mechanic/uihelper.dart';
 import 'package:agri_mechanic/uihelper.dart';
 import 'package:agri_mechanic/utils/constants.dart';
@@ -20,7 +21,10 @@ class mainscreen2 extends StatefulWidget {
 
 class _mainscreen2State extends State<mainscreen2> {
   Logout() async {
-    await FirebaseAuth.instance.signOut();
+    await FirebaseAuth.instance.signOut().then((value) {
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => InitialScreen()));
+    });
   }
 
   @override
@@ -77,7 +81,16 @@ class _mainscreen2State extends State<mainscreen2> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => mainScreen()));
-                        }, "New Customer", context)
+                        }, "New Customer", context),
+                        SizedBox(
+                          height: 40,
+                        ),
+                        CustomButton(() {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => implementstosell()));
+                        }, "Implements to Sell", context),
                       ]),
                 )),
           ),

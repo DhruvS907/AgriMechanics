@@ -1,3 +1,5 @@
+import 'package:agri_mechanic/Screens/Customer/Screen1.dart';
+import 'package:agri_mechanic/Screens/Customer/SeeyourServices.dart';
 import 'package:agri_mechanic/utils/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -79,11 +81,27 @@ class ShowServices extends StatelessWidget {
     );
     Widget widget2 = Column(
       children: [
-        Text("Completed Services",
-            style: TextStyle(
-                fontSize: 25,
-                fontWeight: FontWeight.w700,
-                color: Colors.white)),
+        Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+          IconButton(
+            onPressed: () {
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          seeyourservices(Contact_Number: contactNumber)));
+            },
+            icon: Icon(Icons.navigate_before),
+            color: Colors.white,
+          ),
+          SizedBox(
+            width: 20,
+          ),
+          Text("Completed Services",
+              style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white)),
+        ]),
         SizedBox(
           height: 20,
         ),

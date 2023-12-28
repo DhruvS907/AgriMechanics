@@ -7,7 +7,9 @@ import 'package:flutter/material.dart';
 
 class OTPScreen extends StatefulWidget {
   late String verificationId;
-  OTPScreen({super.key, required this.verificationId});
+  late String Contact_Number;
+  OTPScreen(
+      {super.key, required this.verificationId, required this.Contact_Number});
 
   @override
   State<OTPScreen> createState() => _OTPScreenState();
@@ -55,8 +57,12 @@ class _OTPScreenState extends State<OTPScreen> {
                   FirebaseAuth.instance
                       .signInWithCredential(credential)
                       .then((value) {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => details()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => details(
+                                  Contact_Number: widget.Contact_Number,
+                                )));
                   });
                 } catch (ex) {
                   UiHelper.CustomAlertBox(context, ex.toString());

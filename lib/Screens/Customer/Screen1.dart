@@ -8,7 +8,12 @@ import 'package:flutter/material.dart';
 class Screen1 extends StatefulWidget {
   late String UserName;
   late String Contact_Number;
-  Screen1({super.key, required this.UserName, required this.Contact_Number});
+  late String address;
+  Screen1({
+    super.key,
+    required this.UserName,
+    required this.Contact_Number,
+  });
 
   @override
   State<Screen1> createState() => _Screen1State();
@@ -76,7 +81,10 @@ class _Screen1State extends State<Screen1> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => SellImplement()));
+                                builder: (context) => SellImplement(
+                                      Name: widget.UserName,
+                                      Contact_Number: widget.Contact_Number,
+                                    )));
                       }, "Sell Your Implement", context),
                       SizedBox(
                         height: 20,

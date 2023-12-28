@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:agri_mechanic/Screens/Customer/Screen1.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:agri_mechanic/uihelper.dart';
@@ -8,7 +9,9 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class SellImplement extends StatefulWidget {
-  const SellImplement({super.key});
+  String Name;
+  String Contact_Number;
+  SellImplement({super.key, required this.Name, required this.Contact_Number});
 
   @override
   State<SellImplement> createState() => _SellImplementState();
@@ -174,10 +177,19 @@ class _SellImplementState extends State<SellImplement> {
                               .add({
                             "Name": nameController.text,
                             "Price": desiredpriceController.text,
-                            "ImagePath": imageUrl
+                            "ImagePath": imageUrl,
+                            "Contact Number": widget.Contact_Number
                           }).then((value) {
                             UiHelper.CustomAlertBox(
                                 context, "Added to Database");
+                            Future.delayed(Duration(seconds: 2));
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Screen1(
+                                        UserName: widget.Name,
+                                        Contact_Number:
+                                            widget.Contact_Number)));
                             setState(() {
                               file = null;
                               imageUrl = "";

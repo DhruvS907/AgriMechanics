@@ -61,17 +61,17 @@ class _seeyourservicesState extends State<seeyourservices> {
                       SizedBox(
                         height: 40,
                       ),
-                      CustomButton(() {
-                        Navigator.of(context)
-                            .push(MaterialPageRoute(builder: (context) {
-                          return ShowServices(
-                              isPendingServices: true,
-                              contactNumber: widget.Contact_Number);
-                        }));
-                      }, 'Pending Services', context),
-                      SizedBox(
-                        height: 20,
-                      ),
+                      // CustomButton(() {
+                      //   Navigator.of(context)
+                      //       .push(MaterialPageRoute(builder: (context) {
+                      //     return ShowServices(
+                      //         isPendingServices: true,
+                      //         contactNumber: widget.Contact_Number);
+                      //   }));
+                      // }, 'Pending Services', context),
+                      // SizedBox(
+                      //   height: 20,
+                      // ),
                       CustomButton(() {
                         Navigator.of(context)
                             .push(MaterialPageRoute(builder: (context) {
