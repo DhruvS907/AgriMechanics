@@ -33,6 +33,7 @@ class _mainScreenState extends State<mainScreen> {
   TextEditingController leaseequipmentcontroller = TextEditingController();
   TextEditingController equipmentexchangecontroller = TextEditingController();
 
+  bool ownTractorisYes = true;
   SaveData(
       String Name,
       String Contact_Number,
@@ -157,7 +158,10 @@ class _mainScreenState extends State<mainScreen> {
                 SizedBox(
                   height: 20,
                 ),
-                Text("Owns a Tractor:"),
+                Text(
+                  "Owns a Tractor:",
+                  style: TextStyle(fontSize: 17, color: Colors.black),
+                ),
                 ListTile(
                   title: const Text('Yes'),
                   leading: Radio(
@@ -166,7 +170,7 @@ class _mainScreenState extends State<mainScreen> {
                     onChanged: (value) {
                       setState(() {
                         currentOption = value.toString();
-                        ownTractor = true;
+                        ownTractorisYes = true;
                       });
                     },
                   ),
@@ -179,13 +183,13 @@ class _mainScreenState extends State<mainScreen> {
                     onChanged: (value) {
                       setState(() {
                         currentOption = value.toString();
-                        ownTractor = false;
+                        ownTractorisYes = false;
                       });
                     },
                   ),
                 ),
                 companyques(
-                  ownTractorisYes: ownTractor,
+                  ownTractorisYes: ownTractorisYes,
                 ),
                 SizedBox(
                   height: 20,

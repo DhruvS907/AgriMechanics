@@ -16,8 +16,8 @@ class companyques extends StatelessWidget {
         SizedBox(
           height: 20,
         ),
-        CustomTextField(companycontroller, "Company Name",
-            Icon(Icons.agriculture), false, context, false),
+        CustomTextField2(companycontroller, "Company Name",
+            Icon(Icons.agriculture), false, context, false)
       ],
     );
     return ownTractorisYes ? widget2 : widget1;

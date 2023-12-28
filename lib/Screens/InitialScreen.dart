@@ -1,4 +1,5 @@
 import 'package:agri_mechanic/Authentication_pages/Customer/OtpAuthentication.dart';
+import 'package:agri_mechanic/Authentication_pages/Customer/Password.dart';
 import 'package:agri_mechanic/Authentication_pages/Services/loginpage.dart';
 import 'package:agri_mechanic/uihelper.dart';
 import 'package:agri_mechanic/utils/constants.dart';
@@ -72,7 +73,8 @@ class InitialScreen extends StatelessWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => PhoneAuth()));
+                                  builder: (context) =>
+                                      passwordauthentication()));
                         }, "Customer", context),
                         const SizedBox(
                           height: 40,

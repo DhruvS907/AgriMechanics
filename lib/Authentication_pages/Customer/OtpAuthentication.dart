@@ -50,7 +50,7 @@ class _PhoneAuthState extends State<PhoneAuth> {
                   SizedBox(
                     height: 40,
                   ),
-                  Text("Sign In",
+                  Text("Sign Up",
                       style: Theme.of(context)
                           .textTheme
                           .headlineMedium!
@@ -92,7 +92,7 @@ class _PhoneAuthState extends State<PhoneAuth> {
                         codeAutoRetrievalTimeout: (String verificationId) {},
                         phoneNumber: "+91" + phonecontroller.text.toString());
                   }, 'Send OTP', context),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 20),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -113,7 +113,7 @@ class _PhoneAuthState extends State<PhoneAuth> {
                           );
                         },
                         child: Text(
-                          "Sign In",
+                          "Sign In using Password",
                           style: Theme.of(context)
                               .textTheme
                               .titleMedium!

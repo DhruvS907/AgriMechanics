@@ -1,4 +1,5 @@
 import 'package:agri_mechanic/utils/constants.dart';
+// import 'package:another_carousel_pro/another_carousel_pro.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -73,21 +74,38 @@ class _implementstosellState extends State<implementstosell> {
                                                 ),
                                               ),
                                               title: SizedBox(
-                                                height: 200,
-                                                width: 200,
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                      border: Border.all(
-                                                          color: Colors.white,
-                                                          width: 1)),
-                                                  child: Image(
-                                                    image: NetworkImage(snapshot
-                                                            .data!.docs[index]
-                                                        ["ImagePath"]),
-                                                    fit: BoxFit.cover,
-                                                  ),
-                                                ),
-                                              ),
+                                                  height: 200,
+                                                  width: 200,
+                                                  child: Container(
+                                                      decoration: BoxDecoration(
+                                                          border: Border.all(
+                                                              color:
+                                                                  Colors.white,
+                                                              width: 1)),
+                                                      child: Image(
+                                                        image: NetworkImage(
+                                                            snapshot.data!
+                                                                    .docs[index]
+                                                                ["ImagePath"]),
+                                                        fit: BoxFit.cover,
+                                                      ))),
+                                              // AnotherCarousel(
+                                              //   images: [
+                                              //     AssetImage(
+                                              //         "assets/images/Logo.png"),
+                                              //     AssetImage(
+                                              //         "assets/images/Nature1.png"),
+                                              //     NetworkImage(snapshot
+                                              //             .data!
+                                              //             .docs[index]
+                                              //         ["ImagePath1"]),
+                                              //   ],
+                                              //   boxFit: BoxFit.cover,
+                                              //   dotSize: 6,
+                                              //   indicatorBgPadding: 5,
+                                              // )
+
+                                              // ),
                                               subtitle: Padding(
                                                 padding: EdgeInsets.fromLTRB(
                                                     20, 20, 20, 20),
@@ -157,5 +175,14 @@ class _implementstosellState extends State<implementstosell> {
       ),
     );
     ;
+  }
+}
+
+class ImagesSlider extends StatelessWidget {
+  const ImagesSlider({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
   }
 }

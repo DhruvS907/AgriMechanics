@@ -23,9 +23,6 @@ class _detailsState extends State<details> {
       String Address) async {
     if (Name == "" && Contact_Number == "" && Password == "" && Address == "") {
       return UiHelper.CustomAlertBox(context, "Please Enter all the details");
-    } else if (Contact_Number.length != 10) {
-      return UiHelper.CustomAlertBox(
-          context, "Please Enter a valid Mobile Number");
     } else {
       FirebaseFirestore.instance
           .collection("Customer")
@@ -89,6 +86,8 @@ class _detailsState extends State<details> {
                             .bodyLarge!
                             .copyWith(color: kLightPrimaryBackgroundColor),
                       ),
+                      CustomTextField(namecontroller, "Name",
+                          Icon(Icons.person), false, context, false),
                       Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 25, vertical: 15),
@@ -105,6 +104,7 @@ class _detailsState extends State<details> {
                                   decoration: TextDecoration.underline,
                                   decorationThickness: 0),
                           decoration: InputDecoration(
+                            hintText: widget.Contact_Number,
                             labelText: "Contact Number",
                             labelStyle: Theme.of(context)
                                 .textTheme
@@ -133,7 +133,7 @@ class _detailsState extends State<details> {
                       CustomButton(() {
                         saveDetails(
                             namecontroller.text.toString(),
-                            contact_numbercontroller.text.toString(),
+                            widget.Contact_Number,
                             passwordcontroller.text.toString(),
                             addresscontroller.text.toString());
                       }, "Become a Member", context),
