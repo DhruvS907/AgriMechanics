@@ -55,6 +55,19 @@ class _Screen1State extends State<Screen1> {
                         height: 40,
                       ),
                       Text(
+                        "Welcome ${widget.UserName[0].toUpperCase() + widget.UserName.substring(1)} !",
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineSmall!
+                            .copyWith(
+                                color: kLightPrimaryBackgroundColor,
+                                fontWeight: FontWeight.w700),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text(
                         "Choose any one of our following \nservices :",
                         textAlign: TextAlign.center,
                         style: Theme.of(context)
@@ -63,7 +76,7 @@ class _Screen1State extends State<Screen1> {
                             .copyWith(color: kLightPrimaryBackgroundColor),
                       ),
                       SizedBox(
-                        height: 40,
+                        height: 20,
                       ),
                       CustomButton(() {
                         Navigator.push(

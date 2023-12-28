@@ -1,15 +1,18 @@
+import 'package:agri_mechanic/Screens/Customer/Screen1.dart';
 import 'package:agri_mechanic/Screens/Customer/details.dart';
 import 'package:agri_mechanic/Screens/SaveData.dart';
 import 'package:agri_mechanic/Screens/Services/Form.dart';
 import 'package:agri_mechanic/uihelper.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class OTPScreen extends StatefulWidget {
   late String verificationId;
-  late String Contact_Number;
+  late String contactNumber;
+
   OTPScreen(
-      {super.key, required this.verificationId, required this.Contact_Number});
+      {super.key, required this.verificationId, required this.contactNumber});
 
   @override
   State<OTPScreen> createState() => _OTPScreenState();
@@ -56,13 +59,33 @@ class _OTPScreenState extends State<OTPScreen> {
                           smsCode: otpcontroller.text.toString());
                   FirebaseAuth.instance
                       .signInWithCredential(credential)
-                      .then((value) {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => details(
-                                  Contact_Number: widget.Contact_Number,
-                                )));
+                      .then((value) async {
+                    try {
+                      DocumentSnapshot documentSnapshot =
+                          await FirebaseFirestore.instance
+                              .collection('Customer')
+                              .doc(widget.contactNumber)
+                              .get();
+                      if (documentSnapshot.exists) {
+                        Map<String, dynamic> data =
+                            documentSnapshot.data() as Map<String, dynamic>;
+                        Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(builder: (context) {
+                          return Screen1(
+                              UserName: data['Name'],
+                              Contact_Number: widget.contactNumber);
+                        }));
+                      } else {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => details(
+                                      Contact_Number: widget.contactNumber,
+                                    )));
+                      }
+                    } catch (error) {
+                      UiHelper.CustomAlertBox(context, error.toString());
+                    }
                   });
                 } catch (ex) {
                   UiHelper.CustomAlertBox(context, ex.toString());
