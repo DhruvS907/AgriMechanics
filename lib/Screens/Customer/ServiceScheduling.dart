@@ -1,3 +1,4 @@
+import 'package:agri_mechanic/Screens/Customer/Screen1.dart';
 import 'package:agri_mechanic/uihelper.dart';
 import 'package:agri_mechanic/utils/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -44,10 +45,7 @@ class _ServiceSchedulingState extends State<ServiceScheduling> {
       FirebaseFirestore.instance
           .collection("Customer")
           .doc(widget.Contact_Number)
-          .update({"Date for Servicing": date, "Place": placeName}).then(
-              (value) {
-        UiHelper.CustomAlertBox(context, "Service Scheduled");
-      });
+          .update({"Date for Servicing": date, "Place": placeName});
     }
   }
 
@@ -160,6 +158,13 @@ class _ServiceSchedulingState extends State<ServiceScheduling> {
                             _dateTime, nameofplacecontroller.text.toString());
                         UiHelper.CustomAlertBox(
                             context, "Your Service has been scheduled");
+                        Future.delayed(Duration(seconds: 2));
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Screen1(
+                                    UserName: widget.Name,
+                                    Contact_Number: widget.Contact_Number)));
                       }, "Confirm", context)
                     ]),
               ),

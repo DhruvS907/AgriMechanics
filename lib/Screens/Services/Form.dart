@@ -2,6 +2,7 @@
 
 import 'package:agri_mechanic/Authentication_pages/Services/loginpage.dart';
 import 'package:agri_mechanic/Screens/Interface.dart';
+import 'package:agri_mechanic/Screens/Services/companyques.dart';
 import 'package:agri_mechanic/uihelper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -16,19 +17,23 @@ class mainScreen extends StatefulWidget {
   State<mainScreen> createState() => _mainScreenState();
 }
 
+List<String> options = ['Yes', 'No'];
+
 class _mainScreenState extends State<mainScreen> {
+  String currentOption = options[0];
+
   final _formKey = GlobalKey<FormBuilderState>();
   TextEditingController namecontroller = TextEditingController();
   TextEditingController mobilenumbercontroller = TextEditingController();
   TextEditingController villagedistrictcontroller = TextEditingController();
   TextEditingController areaofcultivationcontroller = TextEditingController();
-  TextEditingController tractorcontroller = TextEditingController();
   TextEditingController equipmentcontroller = TextEditingController();
   TextEditingController equipmentfuturecontroller = TextEditingController();
   TextEditingController govtsubsidycontroller = TextEditingController();
   TextEditingController leaseequipmentcontroller = TextEditingController();
   TextEditingController equipmentexchangecontroller = TextEditingController();
 
+  bool ownTractorisYes = true;
   SaveData(
       String Name,
       String Contact_Number,
@@ -72,6 +77,8 @@ class _mainScreenState extends State<mainScreen> {
           context, MaterialPageRoute(builder: (context) => LoginPage()));
     });
   }
+
+  late bool ownTractor;
 
   @override
   Widget build(BuildContext context) {
@@ -136,23 +143,6 @@ class _mainScreenState extends State<mainScreen> {
                   height: 20,
                 ),
                 TextFormField(
-                  controller: villagedistrictcontroller,
-                  decoration: const InputDecoration(
-                      icon: Icon(Icons.home),
-                      hintText: 'Write Customer Village, District Name here',
-                      labelText: 'Village and District*'),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return UiHelper.CustomAlertBox(context,
-                          'Please enter Customer Village and District');
-                    }
-                    return null;
-                  },
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                TextFormField(
                   controller: areaofcultivationcontroller,
                   decoration: const InputDecoration(
                       icon: Icon(Icons.grass),
@@ -168,22 +158,58 @@ class _mainScreenState extends State<mainScreen> {
                 SizedBox(
                   height: 20,
                 ),
-                TextFormField(
-                  controller: tractorcontroller,
-                  decoration: const InputDecoration(
-                      icon: Icon(Icons.info),
-                      hintText: 'Customer owns a tractor or not',
-                      labelText: 'Owns a Tractor'),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter if Customer owns a Tractor or not';
-                    }
-                    return null;
-                  },
+                Text(
+                  "Owns a Tractor:",
+                  style: TextStyle(fontSize: 17, color: Colors.black),
+                ),
+                ListTile(
+                  title: const Text('Yes'),
+                  leading: Radio(
+                    value: options[0],
+                    groupValue: currentOption,
+                    onChanged: (value) {
+                      setState(() {
+                        currentOption = value.toString();
+                        ownTractorisYes = true;
+                      });
+                    },
+                  ),
+                ),
+                ListTile(
+                  title: const Text('No'),
+                  leading: Radio(
+                    value: options[1],
+                    groupValue: currentOption,
+                    onChanged: (value) {
+                      setState(() {
+                        currentOption = value.toString();
+                        ownTractorisYes = false;
+                      });
+                    },
+                  ),
+                ),
+                companyques(
+                  ownTractorisYes: ownTractorisYes,
                 ),
                 SizedBox(
                   height: 20,
                 ),
+                // TextFormField(
+                //   controller: tractorcontroller,
+                //   decoration: const InputDecoration(
+                //       icon: Icon(Icons.info),
+                //       hintText: 'Customer owns a tractor or not',
+                //       labelText: 'Owns a Tractor'),
+                //   validator: (value) {
+                //     if (value == null || value.isEmpty) {
+                //       return 'Please enter if Customer owns a Tractor or not';
+                //     }
+                //     return null;
+                //   },
+                // ),
+                // SizedBox(
+                //   height: 20,
+                // ),
                 TextFormField(
                   controller: equipmentcontroller,
                   decoration: const InputDecoration(
@@ -205,7 +231,7 @@ class _mainScreenState extends State<mainScreen> {
                   decoration: const InputDecoration(
                       icon: Icon(Icons.info),
                       hintText: 'Equipments',
-                      labelText: 'Equipments needed'),
+                      labelText: 'Equipments Required in Future'),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return "Please enter Customer's Equipment";
@@ -220,8 +246,8 @@ class _mainScreenState extends State<mainScreen> {
                   controller: govtsubsidycontroller,
                   decoration: const InputDecoration(
                       icon: Icon(Icons.info),
-                      hintText: 'Yes or No and if yes then what all subsidy',
-                      labelText: "knowledge about government subsidy"),
+                      hintText: 'Yes or No and if yes then what all subsidies',
+                      labelText: "Knowledge about government subsidy"),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return "Please enter Customer's Response";
@@ -237,7 +263,7 @@ class _mainScreenState extends State<mainScreen> {
                   decoration: const InputDecoration(
                       icon: Icon(Icons.info),
                       hintText: 'Leased equiments',
-                      labelText: "Customer's equipment taken on lease"),
+                      labelText: "Equipments on Lease"),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return "Please enter Customer's Response";
@@ -253,7 +279,7 @@ class _mainScreenState extends State<mainScreen> {
                   decoration: const InputDecoration(
                       icon: Icon(Icons.info),
                       hintText: 'equiments to be exchanged',
-                      labelText: "Equipments to be exchanged"),
+                      labelText: "Equipments to Sell"),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return "Please enter Customer's Response";
@@ -270,7 +296,7 @@ class _mainScreenState extends State<mainScreen> {
                       mobilenumbercontroller.text.toString(),
                       villagedistrictcontroller.text.toString(),
                       areaofcultivationcontroller.text.toString(),
-                      tractorcontroller.text.toString(),
+                      currentOption,
                       equipmentcontroller.text.toString(),
                       equipmentfuturecontroller.text.toString(),
                       govtsubsidycontroller.text.toString(),

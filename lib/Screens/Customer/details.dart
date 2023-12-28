@@ -6,7 +6,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 class details extends StatefulWidget {
-  const details({super.key});
+  late String Contact_Number;
+  details({super.key, required this.Contact_Number});
 
   @override
   State<details> createState() => _detailsState();
@@ -22,9 +23,6 @@ class _detailsState extends State<details> {
       String Address) async {
     if (Name == "" && Contact_Number == "" && Password == "" && Address == "") {
       return UiHelper.CustomAlertBox(context, "Please Enter all the details");
-    } else if (Contact_Number.length != 10) {
-      return UiHelper.CustomAlertBox(
-          context, "Please Enter a valid Mobile Number");
     } else {
       FirebaseFirestore.instance
           .collection("Customer")
@@ -89,17 +87,45 @@ class _detailsState extends State<details> {
                             .copyWith(color: kLightPrimaryBackgroundColor),
                       ),
                       CustomTextField(namecontroller, "Name",
-                          Icon(Icons.person), false, context, null),
-                      CustomTextField(
-                          contact_numbercontroller,
-                          "Contact Number",
-                          Icon(Icons.phone),
-                          false,
-                          context,
-                          null),
+                          Icon(Icons.person), false, context, false),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 25, vertical: 15),
+                        child: TextField(
+                          controller: contact_numbercontroller,
+                          readOnly: true,
+                          obscureText: false,
+                          keyboardType: TextInputType.phone,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge!
+                              .copyWith(
+                                  color: kprimaryTextColor,
+                                  decoration: TextDecoration.underline,
+                                  decorationThickness: 0),
+                          decoration: InputDecoration(
+                            hintText: widget.Contact_Number,
+                            labelText: "Contact Number",
+                            labelStyle: Theme.of(context)
+                                .textTheme
+                                .bodyLarge!
+                                .copyWith(color: kLightSecondaryTextColor),
+                            suffixIcon: Icon(Icons.phone),
+                            suffixIconColor: kLightSecondaryTextColor,
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(25),
+                                borderSide: const BorderSide(
+                                    color: kLightPrimaryBackgroundColor)),
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(25),
+                                borderSide: const BorderSide(
+                                    color: kLightSecondaryTextColor)),
+                          ),
+                        ),
+                      ),
                       CustomTextField(passwordcontroller, "Password",
                           Icon(Icons.password), true, context, null),
-                      CustomTextField(addresscontroller, "Address",
+                      CustomTextField(addresscontroller, "Village, District",
                           Icon(Icons.place), false, context, null),
                       SizedBox(
                         height: 20,
@@ -107,10 +133,10 @@ class _detailsState extends State<details> {
                       CustomButton(() {
                         saveDetails(
                             namecontroller.text.toString(),
-                            contact_numbercontroller.text.toString(),
+                            widget.Contact_Number,
                             passwordcontroller.text.toString(),
                             addresscontroller.text.toString());
-                      }, "Save Your Data", context),
+                      }, "Become a Member", context),
                       SizedBox(
                         height: 40,
                       ),
