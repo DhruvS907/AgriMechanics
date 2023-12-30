@@ -1,6 +1,7 @@
 // ignore_for_file: unused_import
 
 import 'package:agri_mechanic/Authentication_pages/Services/loginpage.dart';
+import 'package:agri_mechanic/Screens/InitialScreen.dart';
 import 'package:agri_mechanic/Screens/Interface.dart';
 import 'package:agri_mechanic/Screens/Services/companyques.dart';
 import 'package:agri_mechanic/uihelper.dart';
@@ -35,16 +36,17 @@ class _mainScreenState extends State<mainScreen> {
 
   bool ownTractorisYes = true;
   SaveData(
-      String Name,
-      String Contact_Number,
-      String place,
-      String area_of_cultivation,
-      String owns_tractor,
-      String equipment_owned,
-      String equipments_needed,
-      String govt_sub,
-      String equipment_lease,
-      String equipment_exchange) async {
+    String Name,
+    String Contact_Number,
+    String place,
+    String area_of_cultivation,
+    String owns_tractor,
+    String equipment_owned,
+    String equipments_needed,
+    String govt_sub,
+    String equipment_lease,
+    String equipment_exchange,
+  ) async {
     if (Name == "" || Contact_Number == "" || place == "") {
       UiHelper.CustomAlertBox(context, "Enter Desired Fields");
     } else if (Contact_Number.length != 10) {
@@ -65,6 +67,7 @@ class _mainScreenState extends State<mainScreen> {
         "Date": DateFormat('yyyy-MM-dd').format(DateTime.now()),
       }).then((value) {
         UiHelper.CustomAlertBox(context, "Data Inserted");
+        Future.delayed(Duration(seconds: 2));
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => mainscreen2()));
       });
@@ -73,8 +76,8 @@ class _mainScreenState extends State<mainScreen> {
 
   Logout() {
     FirebaseAuth.instance.signOut().then((value) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => LoginPage()));
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => InitialScreen()));
     });
   }
 
@@ -114,6 +117,24 @@ class _mainScreenState extends State<mainScreen> {
                     if (value == null || value.isEmpty) {
                       return UiHelper.CustomAlertBox(
                           context, 'Please enter Name');
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                TextFormField(
+                  controller: villagedistrictcontroller,
+                  keyboardType: TextInputType.text,
+                  decoration: const InputDecoration(
+                      icon: Icon(Icons.phone),
+                      hintText: 'Village,District',
+                      labelText: 'Village,District*'),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return UiHelper.CustomAlertBox(
+                          context, 'Please enter Village,District');
                     }
                     return null;
                   },

@@ -1,8 +1,10 @@
 import 'package:agri_mechanic/Screens/Customer/SeeyourServices.dart';
 import 'package:agri_mechanic/Screens/Customer/SellyourImplement.dart';
 import 'package:agri_mechanic/Screens/Customer/ServiceScheduling.dart';
+import 'package:agri_mechanic/Screens/InitialScreen.dart';
 import 'package:agri_mechanic/uihelper.dart';
 import 'package:agri_mechanic/utils/constants.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Screen1 extends StatefulWidget {
@@ -102,13 +104,13 @@ class _Screen1State extends State<Screen1> {
                       SizedBox(
                         height: 20,
                       ),
-                      CustomButton(() {
+                      CustomButton(() async {
+                        await FirebaseAuth.instance.signOut();
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => seeyourservices(
-                                    Contact_Number: widget.Contact_Number)));
-                      }, "See your Services", context),
+                                builder: (context) => InitialScreen()));
+                      }, "Log Out", context),
                       SizedBox(
                         height: 20,
                       ),

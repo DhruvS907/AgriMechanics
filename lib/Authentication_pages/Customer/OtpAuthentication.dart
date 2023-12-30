@@ -18,7 +18,7 @@ class _PhoneAuthState extends State<PhoneAuth> {
   UiHelper _uiHelper = UiHelper();
   TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  bool enterPassword = false;
+  bool enterPassword = true;
   ValueNotifier<bool> isHidden = ValueNotifier<bool>(true);
   @override
   Widget build(BuildContext context) {

@@ -1,4 +1,11 @@
+import 'package:agri_mechanic/Screens/Customer/Screen1.dart';
+import 'package:agri_mechanic/Screens/Customer/details.dart';
+import 'package:agri_mechanic/Screens/InitialScreen.dart';
+import 'package:agri_mechanic/Screens/Interface.dart';
+import 'package:agri_mechanic/Screens/Services/imagedisplay.dart';
 import 'package:agri_mechanic/utils/constants.dart';
+import 'package:carousel_slider/carousel_controller.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 // import 'package:another_carousel_pro/another_carousel_pro.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -12,6 +19,9 @@ class implementstosell extends StatefulWidget {
 }
 
 class _implementstosellState extends State<implementstosell> {
+  List imageList = ["imagePath1", "imagePath2"];
+  final CarouselController carouselController = CarouselController();
+  int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -19,7 +29,7 @@ class _implementstosellState extends State<implementstosell> {
       backgroundColor: kLightPrimaryBackgroundColor,
       body: SingleChildScrollView(
         child: Padding(
-            padding: EdgeInsets.all(8),
+            padding: EdgeInsets.all(2),
             child: Card(
                 color: kLightSecondaryColor,
                 child: Column(
@@ -27,16 +37,35 @@ class _implementstosellState extends State<implementstosell> {
                     SizedBox(
                       height: 30,
                     ),
-                    Text("Implements to Sell",
-                        style: TextStyle(
-                            fontSize: 25,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white)),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => mainscreen2()));
+                          },
+                          icon: Icon(Icons.arrow_back),
+                          color: Colors.white,
+                        ),
+                        SizedBox(
+                          width: 30,
+                        ),
+                        Text("Implements to Sell",
+                            style: TextStyle(
+                                fontSize: 25,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.white)),
+                      ],
+                    ),
                     SizedBox(
                         height: size.height,
                         width: size.width,
                         child: Padding(
-                          padding: EdgeInsets.all(16),
+                          padding: EdgeInsets.all(5),
                           child: StreamBuilder(
                               stream: FirebaseFirestore.instance
                                   .collection("ImplementsToSell")
@@ -73,22 +102,20 @@ class _implementstosellState extends State<implementstosell> {
                                                           kLightSecondaryColor),
                                                 ),
                                               ),
-                                              title: SizedBox(
-                                                  height: 200,
-                                                  width: 200,
-                                                  child: Container(
-                                                      decoration: BoxDecoration(
-                                                          border: Border.all(
-                                                              color:
-                                                                  Colors.white,
-                                                              width: 1)),
-                                                      child: Image(
-                                                        image: NetworkImage(
-                                                            snapshot.data!
-                                                                    .docs[index]
-                                                                ["ImagePath"]),
-                                                        fit: BoxFit.cover,
-                                                      ))),
+                                              title: imagedisplay(
+                                                  imagePath1:
+                                                      snapshot.data!.docs[index]
+                                                          ["ImagePath1"],
+                                                  imagePath2:
+                                                      snapshot.data!.docs[index]
+                                                          ["ImagePath2"]),
+                                              // Image(
+                                              //   image: NetworkImage(
+                                              //       snapshot.data!
+                                              //               .docs[index]
+                                              //           ["ImagePath1"]),
+                                              //   fit: BoxFit.cover,
+                                              // ))),
                                               // AnotherCarousel(
                                               //   images: [
                                               //     AssetImage(
@@ -104,7 +131,6 @@ class _implementstosellState extends State<implementstosell> {
                                               //   dotSize: 6,
                                               //   indicatorBgPadding: 5,
                                               // )
-
                                               // ),
                                               subtitle: Padding(
                                                 padding: EdgeInsets.fromLTRB(
@@ -175,14 +201,5 @@ class _implementstosellState extends State<implementstosell> {
       ),
     );
     ;
-  }
-}
-
-class ImagesSlider extends StatelessWidget {
-  const ImagesSlider({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
   }
 }
