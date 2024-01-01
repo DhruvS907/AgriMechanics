@@ -1,0 +1,96 @@
+import 'package:agri_mechanic/Screens/Customer/Screen1.dart';
+import 'package:agri_mechanic/Screens/Customer/details.dart';
+import 'package:agri_mechanic/Screens/InitialScreen.dart';
+import 'package:agri_mechanic/Screens/Interface.dart';
+import 'package:agri_mechanic/utils/constants.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+class splashScreen extends StatefulWidget {
+  const splashScreen({super.key});
+
+  @override
+  State<splashScreen> createState() => splashScreenState();
+}
+
+class splashScreenState extends State<splashScreen> {
+  static const String KeyisLoggedInService = 'Loginservices';
+  static const String KeyisLoggedInpassword = 'Loginpassword';
+  static const String KeyisUsername = 'Username';
+  static const String KeyisContact_Number = 'Contact_Number';
+
+  @override
+  void initState() {
+    super.initState();
+    _navigator();
+  }
+
+  void _navigator() async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    bool isLoggedInService = sp.getBool('Loginservices') ?? false;
+    bool isLoggedInpassword = sp.getBool('Loginpassword') ?? false;
+    String UserName = sp.getString('Username') ?? '';
+    String Contact_Number = sp.getString('Contact_Number') ?? '';
+
+    await Future.delayed(Duration(seconds: 2));
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => StreamBuilder(
+            stream: FirebaseAuth.instance.authStateChanges(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                if (isLoggedInService) {
+                  return mainscreen2();
+                } else {
+                  return Screen1(
+                      UserName: UserName, Contact_Number: Contact_Number);
+                }
+              } else if (isLoggedInpassword) {
+                return Screen1(
+                    UserName: UserName, Contact_Number: Contact_Number);
+              } else {
+                return InitialScreen();
+              }
+            },
+          ),
+        ));
+  }
+
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return Scaffold(
+      backgroundColor: kLightSecondaryColor,
+      body: Padding(
+        padding: EdgeInsets.all(2),
+        child: Card(
+            color: kLightSecondaryColor,
+            child: Center(
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                  // Text(
+                  //   "उपकरण सुधार \n खेतो में बहार",
+                  //   textAlign: TextAlign.center,
+                  //   style: Theme.of(context).textTheme.headlineLarge!.copyWith(
+                  //       color: kLightPrimaryBackgroundColor,
+                  //       fontWeight: FontWeight.w700),
+                  // ),
+                  // SizedBox(
+                  //   height: 20,
+                  // ),
+                  Container(
+                      height: 300,
+                      width: 300,
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black, width: 2),
+                          borderRadius: BorderRadius.circular(20),
+                          image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: AssetImage("assets/images/Logo1.png")))),
+                ]))),
+      ),
+    );
+  }
+}

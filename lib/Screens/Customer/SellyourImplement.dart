@@ -250,7 +250,7 @@ class _SellImplementState extends State<SellImplement> {
                         ),
                       ),
                       SizedBox(
-                        height: 20,
+                        height: 40,
                       ),
                       CustomButton(() async {
                         if (nameController.text == "" &&

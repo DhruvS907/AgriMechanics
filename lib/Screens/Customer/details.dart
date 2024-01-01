@@ -1,9 +1,11 @@
 import 'package:agri_mechanic/Screens/Customer/Screen1.dart';
+import 'package:agri_mechanic/splashscreen.dart';
 import 'package:agri_mechanic/uihelper.dart';
 import 'package:agri_mechanic/utils/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class details extends StatefulWidget {
   late String Contact_Number;
@@ -130,12 +132,18 @@ class _detailsState extends State<details> {
                       SizedBox(
                         height: 20,
                       ),
-                      CustomButton(() {
+                      CustomButton(() async {
                         saveDetails(
                             namecontroller.text.toString(),
                             widget.Contact_Number,
                             passwordcontroller.text.toString(),
                             addresscontroller.text.toString());
+                        SharedPreferences sp =
+                            await SharedPreferences.getInstance();
+                        sp.setString(splashScreenState.KeyisUsername,
+                            namecontroller.text.toString());
+                        sp.setString(splashScreenState.KeyisContact_Number,
+                            widget.Contact_Number);
                       }, "Become a Member", context),
                       SizedBox(
                         height: 40,

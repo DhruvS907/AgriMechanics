@@ -2,10 +2,12 @@ import 'package:agri_mechanic/Screens/Customer/Screen1.dart';
 import 'package:agri_mechanic/Screens/Customer/details.dart';
 import 'package:agri_mechanic/Screens/SaveData.dart';
 import 'package:agri_mechanic/Screens/Services/Form.dart';
+import 'package:agri_mechanic/splashscreen.dart';
 import 'package:agri_mechanic/uihelper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class OTPScreen extends StatefulWidget {
   late String verificationId;
@@ -69,6 +71,14 @@ class _OTPScreenState extends State<OTPScreen> {
                       if (documentSnapshot.exists) {
                         Map<String, dynamic> data =
                             documentSnapshot.data() as Map<String, dynamic>;
+                        SharedPreferences sp =
+                            await SharedPreferences.getInstance();
+                        sp.setBool(
+                            splashScreenState.KeyisLoggedInpassword, true);
+                        sp.setString(
+                            splashScreenState.KeyisUsername, data['Name']);
+                        sp.setString(splashScreenState.KeyisContact_Number,
+                            widget.contactNumber);
                         Navigator.of(context).pushReplacement(
                             MaterialPageRoute(builder: (context) {
                           return Screen1(

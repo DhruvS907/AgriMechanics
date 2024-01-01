@@ -79,12 +79,15 @@ class InitialScreen extends StatelessWidget {
                           height: 40,
                         ),
                         Text(
-                            "\"Transforming Agri-Tech Services:\n Mechanizing Rural Progress.\"",
-                            textAlign: TextAlign.center,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium!
-                                .copyWith(color: kLightPrimaryBackgroundColor)),
+                          "\"उपकरण सुधार \n खेतो में बहार\"",
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineLarge!
+                              .copyWith(
+                                color: kLightPrimaryBackgroundColor,
+                              ),
+                        ),
                         SizedBox(
                           height: 40,
                         )

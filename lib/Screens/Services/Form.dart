@@ -4,13 +4,16 @@ import 'package:agri_mechanic/Authentication_pages/Services/loginpage.dart';
 import 'package:agri_mechanic/Screens/InitialScreen.dart';
 import 'package:agri_mechanic/Screens/Interface.dart';
 import 'package:agri_mechanic/Screens/Services/companyques.dart';
+import 'package:agri_mechanic/splashscreen.dart';
 import 'package:agri_mechanic/uihelper.dart';
+import 'package:agri_mechanic/utils/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:date_field/date_field.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class mainScreen extends StatefulWidget {
   const mainScreen({super.key});
@@ -74,11 +77,12 @@ class _mainScreenState extends State<mainScreen> {
     }
   }
 
-  Logout() {
-    FirebaseAuth.instance.signOut().then((value) {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => InitialScreen()));
-    });
+  Logout() async {
+    FirebaseAuth.instance.signOut();
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    sp.setBool(splashScreenState.KeyisLoggedInService, false);
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => InitialScreen()));
   }
 
   late bool ownTractor;
@@ -180,12 +184,14 @@ class _mainScreenState extends State<mainScreen> {
                   height: 20,
                 ),
                 Text(
+                  textAlign: TextAlign.left,
                   "Owns a Tractor:",
                   style: TextStyle(fontSize: 17, color: Colors.black),
                 ),
                 ListTile(
                   title: const Text('Yes'),
                   leading: Radio(
+                    activeColor: kLightSecondaryColor,
                     value: options[0],
                     groupValue: currentOption,
                     onChanged: (value) {
@@ -199,6 +205,7 @@ class _mainScreenState extends State<mainScreen> {
                 ListTile(
                   title: const Text('No'),
                   leading: Radio(
+                    activeColor: kLightSecondaryColor,
                     value: options[1],
                     groupValue: currentOption,
                     onChanged: (value) {

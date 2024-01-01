@@ -2,10 +2,12 @@ import 'package:agri_mechanic/Screens/Customer/SeeyourServices.dart';
 import 'package:agri_mechanic/Screens/Customer/SellyourImplement.dart';
 import 'package:agri_mechanic/Screens/Customer/ServiceScheduling.dart';
 import 'package:agri_mechanic/Screens/InitialScreen.dart';
+import 'package:agri_mechanic/splashscreen.dart';
 import 'package:agri_mechanic/uihelper.dart';
 import 'package:agri_mechanic/utils/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Screen1 extends StatefulWidget {
   late String UserName;
@@ -106,6 +108,10 @@ class _Screen1State extends State<Screen1> {
                       ),
                       CustomButton(() async {
                         await FirebaseAuth.instance.signOut();
+                        SharedPreferences sp =
+                            await SharedPreferences.getInstance();
+                        sp.setBool(
+                            splashScreenState.KeyisLoggedInpassword, false);
                         Navigator.push(
                             context,
                             MaterialPageRoute(
