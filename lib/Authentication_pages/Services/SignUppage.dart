@@ -174,7 +174,7 @@ class _SignUppageState extends State<SignUppage> {
                             SharedPreferences sp =
                                 await SharedPreferences.getInstance();
                             sp.setBool(
-                                splashScreenState.KeyisLoggedInService, true);
+                                SplashScreenState.KeyisLoggedInService, true);
                           }, "SignUp", context),
                           SizedBox(
                             height: 10,

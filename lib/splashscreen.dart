@@ -7,14 +7,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class splashScreen extends StatefulWidget {
-  const splashScreen({super.key});
+class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
 
   @override
-  State<splashScreen> createState() => splashScreenState();
+  State<SplashScreen> createState() => SplashScreenState();
 }
 
-class splashScreenState extends State<splashScreen> {
+class SplashScreenState extends State<SplashScreen> {
   static const String KeyisLoggedInService = 'Loginservices';
   static const String KeyisLoggedInpassword = 'Loginpassword';
   static const String KeyisUsername = 'Username';
@@ -61,35 +61,31 @@ class splashScreenState extends State<splashScreen> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: kLightSecondaryColor,
+      backgroundColor: kLightPrimaryBackgroundColor,
       body: Padding(
         padding: EdgeInsets.all(2),
-        child: Card(
-            color: kLightSecondaryColor,
-            child: Center(
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                  // Text(
-                  //   "उपकरण सुधार \n खेतो में बहार",
-                  //   textAlign: TextAlign.center,
-                  //   style: Theme.of(context).textTheme.headlineLarge!.copyWith(
-                  //       color: kLightPrimaryBackgroundColor,
-                  //       fontWeight: FontWeight.w700),
-                  // ),
-                  // SizedBox(
-                  //   height: 20,
-                  // ),
-                  Container(
-                      height: 300,
-                      width: 300,
-                      decoration: BoxDecoration(
-                          border: Border.all(color: Colors.black, width: 2),
-                          borderRadius: BorderRadius.circular(20),
-                          image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: AssetImage("assets/images/Logo1.png")))),
-                ]))),
+        child: Center(
+            child:
+                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          // Text(
+          //   "उपकरण सुधार \n खेतो में बहार",
+          //   textAlign: TextAlign.center,
+          //   style: Theme.of(context).textTheme.headlineLarge!.copyWith(
+          //       color: kLightPrimaryBackgroundColor,
+          //       fontWeight: FontWeight.w700),
+          // ),
+          // SizedBox(
+          //   height: 20,
+          // ),
+          Hero(
+            tag: 'assets/images/Logo.png',
+            child: Image.asset(
+              'assets/images/Logo.png',
+              width: 400,
+              height: 400,
+            ),
+          )
+        ])),
       ),
     );
   }

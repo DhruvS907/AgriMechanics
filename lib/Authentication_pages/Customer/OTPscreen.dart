@@ -74,10 +74,10 @@ class _OTPScreenState extends State<OTPScreen> {
                         SharedPreferences sp =
                             await SharedPreferences.getInstance();
                         sp.setBool(
-                            splashScreenState.KeyisLoggedInpassword, true);
+                            SplashScreenState.KeyisLoggedInpassword, true);
                         sp.setString(
-                            splashScreenState.KeyisUsername, data['Name']);
-                        sp.setString(splashScreenState.KeyisContact_Number,
+                            SplashScreenState.KeyisUsername, data['Name']);
+                        sp.setString(SplashScreenState.KeyisContact_Number,
                             widget.contactNumber);
                         Navigator.of(context).pushReplacement(
                             MaterialPageRoute(builder: (context) {

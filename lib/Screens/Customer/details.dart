@@ -140,9 +140,9 @@ class _detailsState extends State<details> {
                             addresscontroller.text.toString());
                         SharedPreferences sp =
                             await SharedPreferences.getInstance();
-                        sp.setString(splashScreenState.KeyisUsername,
+                        sp.setString(SplashScreenState.KeyisUsername,
                             namecontroller.text.toString());
-                        sp.setString(splashScreenState.KeyisContact_Number,
+                        sp.setString(SplashScreenState.KeyisContact_Number,
                             widget.Contact_Number);
                       }, "Become a Member", context),
                       SizedBox(

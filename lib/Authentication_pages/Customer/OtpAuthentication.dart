@@ -139,10 +139,10 @@ class _PhoneAuthState extends State<PhoneAuth> {
                             SharedPreferences sp =
                                 await SharedPreferences.getInstance();
                             sp.setBool(
-                                splashScreenState.KeyisLoggedInpassword, true);
+                                SplashScreenState.KeyisLoggedInpassword, true);
                             sp.setString(
-                                splashScreenState.KeyisUsername, data['Name']);
-                            sp.setString(splashScreenState.KeyisContact_Number,
+                                SplashScreenState.KeyisUsername, data['Name']);
+                            sp.setString(SplashScreenState.KeyisContact_Number,
                                 phoneController.text);
                             Navigator.of(context).pushReplacement(
                                 MaterialPageRoute(builder: (context) {

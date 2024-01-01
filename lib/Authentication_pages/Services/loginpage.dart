@@ -144,7 +144,7 @@ class _LoginPageState extends State<LoginPage> {
                     );
                     SharedPreferences sp =
                         await SharedPreferences.getInstance();
-                    sp.setBool(splashScreenState.KeyisLoggedInService, true);
+                    sp.setBool(SplashScreenState.KeyisLoggedInService, true);
                   }, "Login", context),
                   const SizedBox(height: 10),
                   Column(

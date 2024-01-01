@@ -21,42 +21,55 @@ class _imagedisplayState extends State<imagedisplay> {
 
   @override
   Widget build(BuildContext context) {
-    Widget widget1 = SizedBox(
-        height: 200,
-        width: 200,
-        child: Container(
-            decoration: BoxDecoration(
-                border: Border.all(color: Colors.white, width: 1)),
-            child: Image(
-                image: NetworkImage(widget.imagePath1),
-                height: 400,
-                width: 200,
-                fit: BoxFit.cover)));
+    Size size = MediaQuery.of(context).size;
+    Widget widget1 = FadeInImage(
+      placeholder: AssetImage('assets/images/BackgroundImage1.avif'),
+      image: NetworkImage(
+        widget.imagePath1 == "" ? widget.imagePath2 : widget.imagePath1,
+      ),
+      fit: BoxFit.fill,
+      fadeInCurve: Curves.easeInCirc,
+      placeholderFit: BoxFit.fill,
+      width: size.width * 0.95,
+      height: 250,
+    );
     Widget widget2 = Stack(children: [
-      SizedBox(
-          height: 200,
-          width: 200,
-          child: Container(
-            decoration: BoxDecoration(
-                border: Border.all(color: Colors.white, width: 1)),
-            child: CarouselSlider(
-                items: [
-                  Image(
-                      image: NetworkImage(widget.imagePath1),
-                      fit: BoxFit.cover,
-                      height: 400,
-                      width: 200),
-                  Image(
-                    image: NetworkImage(widget.imagePath2),
-                    height: 400,
-                    width: 200,
-                    fit: BoxFit.cover,
-                  )
-                ],
-                carouselController: carouselController,
-                options: CarouselOptions(
-                    scrollDirection: Axis.horizontal, autoPlay: false)),
-          ))
+      Positioned.fill(
+        child: CarouselSlider(
+            items: [
+              FadeInImage(
+                placeholder: AssetImage('assets/images/BackgroundImage1.avif'),
+                image: NetworkImage(
+                  widget.imagePath1,
+                ),
+                fit: BoxFit.fill,
+                fadeInCurve: Curves.easeInCirc,
+                placeholderFit: BoxFit.fill,
+                width: size.width * 0.95,
+                height: 250,
+              ),
+              FadeInImage(
+                placeholder: AssetImage('assets/images/BackgroundImage1.avif'),
+                image: NetworkImage(
+                  widget.imagePath2,
+                ),
+                fit: BoxFit.fill,
+                fadeInCurve: Curves.easeInCirc,
+                placeholderFit: BoxFit.fill,
+                width: size.width * 0.95,
+                height: 250,
+              ),
+            ],
+            carouselController: carouselController,
+            options: CarouselOptions(
+                height: 250,
+                viewportFraction: 1,
+                scrollDirection: Axis.horizontal,
+                enableInfiniteScroll: false,
+                pauseAutoPlayInFiniteScroll: true,
+                autoPlayAnimationDuration: Duration(seconds: 2),
+                autoPlay: true)),
+      )
     ]);
     if (widget.imagePath1 == "" || widget.imagePath2 == "") {
       return widget1;

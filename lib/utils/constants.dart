@@ -55,7 +55,9 @@ ThemeData kLightThemeData = ThemeData(
   ),
   primaryColor: kprimaryColor,
   scaffoldBackgroundColor: kLightPrimaryBackgroundColor,
-  appBarTheme: const AppBarTheme(backgroundColor: kLightPrimaryBackgroundColor),
+  appBarTheme: const AppBarTheme(
+    backgroundColor: kLightPrimaryBackgroundColor,
+  ),
   colorScheme: ColorScheme.fromSwatch().copyWith(
     secondary: kLightSecondaryColor,
     background: kLightPrimaryBackgroundColor,

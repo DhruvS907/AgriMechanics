@@ -80,7 +80,7 @@ class _mainScreenState extends State<mainScreen> {
   Logout() async {
     FirebaseAuth.instance.signOut();
     SharedPreferences sp = await SharedPreferences.getInstance();
-    sp.setBool(splashScreenState.KeyisLoggedInService, false);
+    sp.setBool(SplashScreenState.KeyisLoggedInService, false);
     Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => InitialScreen()));
   }
@@ -103,236 +103,246 @@ class _mainScreenState extends State<mainScreen> {
                 },
                 icon: Icon(Icons.logout))
           ]),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 15),
-        child: Form(
-          key: _formKey,
-          child: SingleChildScrollView(
-            padding: EdgeInsets.all(8),
-            child: Column(
-              children: [
-                TextFormField(
-                  controller: namecontroller,
-                  decoration: const InputDecoration(
-                      icon: Icon(Icons.person),
-                      hintText: 'Write your Name here',
-                      labelText: 'Name *'),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return UiHelper.CustomAlertBox(
-                          context, 'Please enter Name');
-                    }
-                    return null;
-                  },
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                TextFormField(
-                  controller: villagedistrictcontroller,
-                  keyboardType: TextInputType.text,
-                  decoration: const InputDecoration(
-                      icon: Icon(Icons.phone),
-                      hintText: 'Village,District',
-                      labelText: 'Village,District*'),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return UiHelper.CustomAlertBox(
-                          context, 'Please enter Village,District');
-                    }
-                    return null;
-                  },
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                TextFormField(
-                  controller: mobilenumbercontroller,
-                  keyboardType: TextInputType.phone,
-                  decoration: const InputDecoration(
-                      icon: Icon(Icons.phone),
-                      hintText: 'Write your Mobile Number here',
-                      labelText: 'Contact Number *'),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return UiHelper.CustomAlertBox(
-                          context, 'Please enter Contact Number');
-                    } else if (value.length != 10) {
-                      return UiHelper.CustomAlertBox(
-                          context, 'Enter a valid mobile Number');
-                    }
-                    return null;
-                  },
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                TextFormField(
-                  controller: areaofcultivationcontroller,
-                  decoration: const InputDecoration(
-                      icon: Icon(Icons.grass),
-                      hintText: 'Write the Area of Cultivation here',
-                      labelText: 'Area of Cultivation'),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter your Area of Cultivation';
-                    }
-                    return null;
-                  },
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  textAlign: TextAlign.left,
-                  "Owns a Tractor:",
-                  style: TextStyle(fontSize: 17, color: Colors.black),
-                ),
-                ListTile(
-                  title: const Text('Yes'),
-                  leading: Radio(
-                    activeColor: kLightSecondaryColor,
-                    value: options[0],
-                    groupValue: currentOption,
-                    onChanged: (value) {
-                      setState(() {
-                        currentOption = value.toString();
-                        ownTractorisYes = true;
-                      });
-                    },
+      body: Form(
+        key: _formKey,
+        child: SingleChildScrollView(
+          padding: EdgeInsets.all(23),
+          child: Column(
+            children: [
+              TextFormField(
+                controller: namecontroller,
+                decoration: const InputDecoration(
+                    icon: Icon(Icons.person),
+                    hintText: 'Write your Name here',
+                    labelText: 'Name *'),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return UiHelper.CustomAlertBox(
+                        context, 'Please enter Name');
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              TextFormField(
+                controller: villagedistrictcontroller,
+                keyboardType: TextInputType.text,
+                decoration: const InputDecoration(
+                    icon: Icon(Icons.phone),
+                    hintText: 'Village,District',
+                    labelText: 'Village,District*'),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return UiHelper.CustomAlertBox(
+                        context, 'Please enter Village,District');
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              TextFormField(
+                controller: mobilenumbercontroller,
+                keyboardType: TextInputType.phone,
+                decoration: const InputDecoration(
+                    icon: Icon(Icons.phone),
+                    hintText: 'Write your Mobile Number here',
+                    labelText: 'Contact Number *'),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return UiHelper.CustomAlertBox(
+                        context, 'Please enter Contact Number');
+                  } else if (value.length != 10) {
+                    return UiHelper.CustomAlertBox(
+                        context, 'Enter a valid mobile Number');
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              TextFormField(
+                controller: areaofcultivationcontroller,
+                decoration: const InputDecoration(
+                    icon: Icon(Icons.grass),
+                    hintText: 'Write the Area of Cultivation here',
+                    labelText: 'Area of Cultivation'),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your Area of Cultivation';
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(
+                height: 20,
+              ),
+
+              // TextFormField(
+              //   controller: tractorcontroller,
+              //   decoration: const InputDecoration(
+              //       icon: Icon(Icons.info),
+              //       hintText: 'Customer owns a tractor or not',
+              //       labelText: 'Owns a Tractor'),
+              //   validator: (value) {
+              //     if (value == null || value.isEmpty) {
+              //       return 'Please enter if Customer owns a Tractor or not';
+              //     }
+              //     return null;
+              //   },
+              // ),
+              // SizedBox(
+              //   height: 20,
+              // ),
+              TextFormField(
+                controller: equipmentcontroller,
+                decoration: const InputDecoration(
+                    icon: Icon(Icons.info),
+                    hintText: 'Equipments',
+                    labelText: "Equipments owned"),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Please enter Customer's Equipment";
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              TextFormField(
+                controller: equipmentfuturecontroller,
+                decoration: const InputDecoration(
+                    icon: Icon(Icons.info),
+                    hintText: 'Equipments',
+                    labelText: 'Equipments Required in Future'),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Please enter Customer's Equipment";
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              TextFormField(
+                controller: govtsubsidycontroller,
+                decoration: const InputDecoration(
+                    icon: Icon(Icons.info),
+                    hintText: 'Yes or No and if yes then what all subsidies',
+                    labelText: "Knowledge about government subsidy"),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Please enter Customer's Response";
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              TextFormField(
+                controller: leaseequipmentcontroller,
+                decoration: const InputDecoration(
+                    icon: Icon(Icons.info),
+                    hintText: 'Leased equiments',
+                    labelText: "Equipments on Lease"),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Please enter Customer's Response";
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              TextFormField(
+                controller: equipmentexchangecontroller,
+                decoration: const InputDecoration(
+                    icon: Icon(Icons.info),
+                    hintText: 'equiments to be exchanged',
+                    labelText: "Equipments to Sell"),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Please enter Customer's Response";
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              Row(
+                children: [
+                  SizedBox(
+                    width: 8,
                   ),
-                ),
-                ListTile(
-                  title: const Text('No'),
-                  leading: Radio(
-                    activeColor: kLightSecondaryColor,
-                    value: options[1],
-                    groupValue: currentOption,
-                    onChanged: (value) {
-                      setState(() {
-                        currentOption = value.toString();
-                        ownTractorisYes = false;
-                      });
-                    },
+                  Text(
+                    textAlign: TextAlign.start,
+                    "Owns a Tractor:",
+                    style: TextStyle(fontSize: 17, color: Colors.black),
                   ),
-                ),
-                companyques(
-                  ownTractorisYes: ownTractorisYes,
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                // TextFormField(
-                //   controller: tractorcontroller,
-                //   decoration: const InputDecoration(
-                //       icon: Icon(Icons.info),
-                //       hintText: 'Customer owns a tractor or not',
-                //       labelText: 'Owns a Tractor'),
-                //   validator: (value) {
-                //     if (value == null || value.isEmpty) {
-                //       return 'Please enter if Customer owns a Tractor or not';
-                //     }
-                //     return null;
-                //   },
-                // ),
-                // SizedBox(
-                //   height: 20,
-                // ),
-                TextFormField(
-                  controller: equipmentcontroller,
-                  decoration: const InputDecoration(
-                      icon: Icon(Icons.info),
-                      hintText: 'Equipments',
-                      labelText: "Equipments owned"),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "Please enter Customer's Equipment";
-                    }
-                    return null;
+                ],
+              ),
+              ListTile(
+                title: const Text('Yes'),
+                leading: Radio(
+                  activeColor: kLightSecondaryColor,
+                  value: options[0],
+                  groupValue: currentOption,
+                  onChanged: (value) {
+                    setState(() {
+                      currentOption = value.toString();
+                      ownTractorisYes = true;
+                    });
                   },
                 ),
-                SizedBox(
-                  height: 20,
-                ),
-                TextFormField(
-                  controller: equipmentfuturecontroller,
-                  decoration: const InputDecoration(
-                      icon: Icon(Icons.info),
-                      hintText: 'Equipments',
-                      labelText: 'Equipments Required in Future'),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "Please enter Customer's Equipment";
-                    }
-                    return null;
+              ),
+
+              ListTile(
+                title: const Text('No'),
+                leading: Radio(
+                  activeColor: kLightSecondaryColor,
+                  value: options[1],
+                  groupValue: currentOption,
+                  onChanged: (value) {
+                    setState(() {
+                      currentOption = value.toString();
+                      ownTractorisYes = false;
+                    });
                   },
                 ),
-                SizedBox(
-                  height: 20,
-                ),
-                TextFormField(
-                  controller: govtsubsidycontroller,
-                  decoration: const InputDecoration(
-                      icon: Icon(Icons.info),
-                      hintText: 'Yes or No and if yes then what all subsidies',
-                      labelText: "Knowledge about government subsidy"),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "Please enter Customer's Response";
-                    }
-                    return null;
-                  },
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                TextFormField(
-                  controller: leaseequipmentcontroller,
-                  decoration: const InputDecoration(
-                      icon: Icon(Icons.info),
-                      hintText: 'Leased equiments',
-                      labelText: "Equipments on Lease"),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "Please enter Customer's Response";
-                    }
-                    return null;
-                  },
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                TextFormField(
-                  controller: equipmentexchangecontroller,
-                  decoration: const InputDecoration(
-                      icon: Icon(Icons.info),
-                      hintText: 'equiments to be exchanged',
-                      labelText: "Equipments to Sell"),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "Please enter Customer's Response";
-                    }
-                    return null;
-                  },
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                CustomButton(() {
-                  SaveData(
-                      namecontroller.text.toString(),
-                      mobilenumbercontroller.text.toString(),
-                      villagedistrictcontroller.text.toString(),
-                      areaofcultivationcontroller.text.toString(),
-                      currentOption,
-                      equipmentcontroller.text.toString(),
-                      equipmentfuturecontroller.text.toString(),
-                      govtsubsidycontroller.text.toString(),
-                      leaseequipmentcontroller.text.toString(),
-                      equipmentexchangecontroller.text.toString());
-                }, "Save Data", context)
-              ],
-            ),
+              ),
+              companyques(
+                ownTractorisYes: ownTractorisYes,
+              ),
+              SizedBox(
+                height: 40,
+              ),
+
+              CustomButton(() {
+                SaveData(
+                    namecontroller.text.toString(),
+                    mobilenumbercontroller.text.toString(),
+                    villagedistrictcontroller.text.toString(),
+                    areaofcultivationcontroller.text.toString(),
+                    currentOption,
+                    equipmentcontroller.text.toString(),
+                    equipmentfuturecontroller.text.toString(),
+                    govtsubsidycontroller.text.toString(),
+                    leaseequipmentcontroller.text.toString(),
+                    equipmentexchangecontroller.text.toString());
+              }, "Save Data", context),
+              SizedBox(
+                height: 40,
+              )
+            ],
           ),
         ),
       ),

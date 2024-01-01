@@ -111,7 +111,7 @@ class _Screen1State extends State<Screen1> {
                         SharedPreferences sp =
                             await SharedPreferences.getInstance();
                         sp.setBool(
-                            splashScreenState.KeyisLoggedInpassword, false);
+                            SplashScreenState.KeyisLoggedInpassword, false);
                         Navigator.push(
                             context,
                             MaterialPageRoute(

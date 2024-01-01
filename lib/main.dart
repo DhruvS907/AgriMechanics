@@ -35,6 +35,6 @@ void main() async {
     MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: kLightThemeData,
-        home: splashScreen()),
+        home: SplashScreen()),
   );
 }

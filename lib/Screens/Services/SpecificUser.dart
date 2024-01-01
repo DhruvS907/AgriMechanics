@@ -21,7 +21,7 @@ class _customerDetailsState extends State<customerDetails> {
   Logout() async {
     FirebaseAuth.instance.signOut();
     SharedPreferences sp = await SharedPreferences.getInstance();
-    sp.setBool(splashScreenState.KeyisLoggedInService, false);
+    sp.setBool(SplashScreenState.KeyisLoggedInService, false);
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => LoginPage()));
   }
@@ -39,232 +39,284 @@ class _customerDetailsState extends State<customerDetails> {
         padding: const EdgeInsets.all(2.0),
         child: Card(
           color: kLightSecondaryColor,
-          child: Stack(children: [
-            StreamBuilder(
-              stream: FirebaseFirestore.instance
-                  .collection("Users")
-                  .where("Contact Number", isEqualTo: widget.Contact_Number)
-                  .snapshots(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.active) {
-                  if (snapshot.hasData) {
-                    return ListView.builder(
-                        itemCount: snapshot.data!.docs.length,
-                        itemBuilder: (context, index) {
-                          return Column(children: [
-                            ListTile(
-                              leading: CircleAvatar(
-                                backgroundColor: Colors.white,
-                                child: Text(
-                                  "1",
-                                  style: TextStyle(color: kLightSecondaryColor),
-                                ),
-                              ),
-                              title: Text("Name",
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.white)),
-                              subtitle: Text(
-                                  "${snapshot.data!.docs[index]["Name"]}",
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.white)),
+          child: SizedBox(
+            height: size.height * 0.9,
+            width: size.width,
+            child: Stack(children: [
+              Positioned.fill(
+                child: StreamBuilder(
+                  stream: FirebaseFirestore.instance
+                      .collection("Users")
+                      .where("Contact Number", isEqualTo: widget.Contact_Number)
+                      .snapshots(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.active) {
+                      if (snapshot.hasData) {
+                        if (snapshot.data!.docs.length > 0) {
+                          return ListView.builder(
+                              itemCount: snapshot.data!.docs.length,
+                              itemBuilder: (context, index) {
+                                return Column(children: [
+                                  ListTile(
+                                    leading: CircleAvatar(
+                                      backgroundColor: Colors.white,
+                                      child: Text(
+                                        "1",
+                                        style: TextStyle(
+                                            color: kLightSecondaryColor),
+                                      ),
+                                    ),
+                                    title: Text("Name",
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.white)),
+                                    subtitle: Text(
+                                        "${snapshot.data!.docs[index]["Name"]}",
+                                        style: TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.white)),
+                                  ),
+                                  ListTile(
+                                    leading: CircleAvatar(
+                                      backgroundColor: Colors.white,
+                                      child: Text(
+                                        "2",
+                                        style: TextStyle(
+                                            color: kLightSecondaryColor),
+                                      ),
+                                    ),
+                                    title: Text(
+                                      "Contact Number",
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.white),
+                                    ),
+                                    subtitle: Text(
+                                        "${snapshot.data!.docs[index]["Contact Number"]}",
+                                        style: TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.white)),
+                                  ),
+                                  ListTile(
+                                    leading: CircleAvatar(
+                                      backgroundColor: Colors.white,
+                                      child: Text(
+                                        "3",
+                                        style: TextStyle(
+                                            color: kLightSecondaryColor),
+                                      ),
+                                    ),
+                                    title: Text("Village, District",
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.white)),
+                                    subtitle: Text(
+                                        "${snapshot.data!.docs[index]["Village, District"]}",
+                                        style: TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.white)),
+                                  ),
+                                  ListTile(
+                                    leading: CircleAvatar(
+                                      backgroundColor: Colors.white,
+                                      child: Text(
+                                        "4",
+                                        style: TextStyle(
+                                            color: kLightSecondaryColor),
+                                      ),
+                                    ),
+                                    title: Text("Area of Cultivation",
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.white)),
+                                    subtitle: Text(
+                                        "${snapshot.data!.docs[index]["Area of Cultivation"]}",
+                                        style: TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.white)),
+                                  ),
+                                  ListTile(
+                                    leading: CircleAvatar(
+                                      backgroundColor: Colors.white,
+                                      child: Text(
+                                        "5",
+                                        style: TextStyle(
+                                            color: kLightSecondaryColor),
+                                      ),
+                                    ),
+                                    title: Text("Owns A Tractor",
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.white)),
+                                    subtitle: Text(
+                                        "${snapshot.data!.docs[index]["Owns Tractor"]}",
+                                        style: TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.white)),
+                                  ),
+                                  ListTile(
+                                    leading: CircleAvatar(
+                                      backgroundColor: Colors.white,
+                                      child: Text(
+                                        "6",
+                                        style: TextStyle(
+                                            color: kLightSecondaryColor),
+                                      ),
+                                    ),
+                                    title: Text("Equipments owned",
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.white)),
+                                    subtitle: Text(
+                                        "${snapshot.data!.docs[index]["Owned Equipment"]}",
+                                        style: TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.white)),
+                                  ),
+                                  ListTile(
+                                    leading: CircleAvatar(
+                                      backgroundColor: Colors.white,
+                                      child: Text(
+                                        "7",
+                                        style: TextStyle(
+                                            color: kLightSecondaryColor),
+                                      ),
+                                    ),
+                                    title: Text("Equipment needed",
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.white)),
+                                    subtitle: Text(
+                                        "${snapshot.data!.docs[index]["Equipment needed"]}",
+                                        style: TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.white)),
+                                  ),
+                                  ListTile(
+                                    leading: CircleAvatar(
+                                      backgroundColor: Colors.white,
+                                      child: Text(
+                                        "8",
+                                        style: TextStyle(
+                                            color: kLightSecondaryColor),
+                                      ),
+                                    ),
+                                    title: Text(
+                                        "Knowledge about Government Subsidy",
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.white)),
+                                    subtitle: Text(
+                                        "${snapshot.data!.docs[index]["Knowledge about Government Subsidy"]}",
+                                        style: TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.white)),
+                                  ),
+                                  ListTile(
+                                    leading: CircleAvatar(
+                                      backgroundColor: Colors.white,
+                                      child: Text(
+                                        "9",
+                                        style: TextStyle(
+                                            color: kLightSecondaryColor),
+                                      ),
+                                    ),
+                                    title: Text("Equipment on lease",
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.white)),
+                                    subtitle: Text(
+                                        "${snapshot.data!.docs[index]["Equipment on lease"]}",
+                                        style: TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.white)),
+                                  ),
+                                  ListTile(
+                                    leading: CircleAvatar(
+                                      backgroundColor: Colors.white,
+                                      child: Text(
+                                        "10",
+                                        style: TextStyle(
+                                            color: kLightSecondaryColor),
+                                      ),
+                                    ),
+                                    title: Text("Equipment to exchange",
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.white)),
+                                    subtitle: Text(
+                                        "${snapshot.data!.docs[index]["Equipment to exchange"]}",
+                                        style: TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.white)),
+                                  ),
+                                ]);
+                              });
+                        } else {
+                          return Center(
+                            child: Text(
+                              'No customers yet !',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge!
+                                  .copyWith(
+                                      color: kLightPrimaryBackgroundColor),
                             ),
-                            ListTile(
-                              leading: CircleAvatar(
-                                backgroundColor: Colors.white,
-                                child: Text(
-                                  "2",
-                                  style: TextStyle(color: kLightSecondaryColor),
-                                ),
-                              ),
-                              title: Text(
-                                "Contact Number",
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.white),
-                              ),
-                              subtitle: Text(
-                                  "${snapshot.data!.docs[index]["Contact Number"]}",
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.white)),
-                            ),
-                            ListTile(
-                              leading: CircleAvatar(
-                                backgroundColor: Colors.white,
-                                child: Text(
-                                  "3",
-                                  style: TextStyle(color: kLightSecondaryColor),
-                                ),
-                              ),
-                              title: Text("Village, District",
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.white)),
-                              subtitle: Text(
-                                  "${snapshot.data!.docs[index]["Village, District"]}",
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.white)),
-                            ),
-                            ListTile(
-                              leading: CircleAvatar(
-                                backgroundColor: Colors.white,
-                                child: Text(
-                                  "4",
-                                  style: TextStyle(color: kLightSecondaryColor),
-                                ),
-                              ),
-                              title: Text("Area of Cultivation",
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.white)),
-                              subtitle: Text(
-                                  "${snapshot.data!.docs[index]["Area of Cultivation"]}",
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.white)),
-                            ),
-                            ListTile(
-                              leading: CircleAvatar(
-                                backgroundColor: Colors.white,
-                                child: Text(
-                                  "5",
-                                  style: TextStyle(color: kLightSecondaryColor),
-                                ),
-                              ),
-                              title: Text("Owns A Tractor",
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.white)),
-                              subtitle: Text(
-                                  "${snapshot.data!.docs[index]["Owns Tractor"]}",
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.white)),
-                            ),
-                            ListTile(
-                              leading: CircleAvatar(
-                                backgroundColor: Colors.white,
-                                child: Text(
-                                  "6",
-                                  style: TextStyle(color: kLightSecondaryColor),
-                                ),
-                              ),
-                              title: Text("Equipments owned",
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.white)),
-                              subtitle: Text(
-                                  "${snapshot.data!.docs[index]["Owned Equipment"]}",
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.white)),
-                            ),
-                            ListTile(
-                              leading: CircleAvatar(
-                                backgroundColor: Colors.white,
-                                child: Text(
-                                  "7",
-                                  style: TextStyle(color: kLightSecondaryColor),
-                                ),
-                              ),
-                              title: Text("Equipment needed",
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.white)),
-                              subtitle: Text(
-                                  "${snapshot.data!.docs[index]["Equipment needed"]}",
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.white)),
-                            ),
-                            ListTile(
-                              leading: CircleAvatar(
-                                backgroundColor: Colors.white,
-                                child: Text(
-                                  "8",
-                                  style: TextStyle(color: kLightSecondaryColor),
-                                ),
-                              ),
-                              title: Text("Knowledge about Government Subsidy",
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.white)),
-                              subtitle: Text(
-                                  "${snapshot.data!.docs[index]["Knowledge about Government Subsidy"]}",
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.white)),
-                            ),
-                            ListTile(
-                              leading: CircleAvatar(
-                                backgroundColor: Colors.white,
-                                child: Text(
-                                  "9",
-                                  style: TextStyle(color: kLightSecondaryColor),
-                                ),
-                              ),
-                              title: Text("Equipment on lease",
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.white)),
-                              subtitle: Text(
-                                  "${snapshot.data!.docs[index]["Equipment on lease"]}",
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.white)),
-                            ),
-                            ListTile(
-                              leading: CircleAvatar(
-                                backgroundColor: Colors.white,
-                                child: Text(
-                                  "10",
-                                  style: TextStyle(color: kLightSecondaryColor),
-                                ),
-                              ),
-                              title: Text("Equipment to exchange",
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.white)),
-                              subtitle: Text(
-                                  "${snapshot.data!.docs[index]["Equipment to exchange"]}",
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.white)),
-                            )
-                          ]);
-                        });
-                  } else {
-                    return UiHelper.CustomAlertBox(context, "Error Occured");
-                  }
-                } else {
-                  return CircularProgressIndicator();
-                }
-              },
-            ),
-          ]),
+                          );
+                        }
+                      } else {
+                        return Center(
+                          child: Text(
+                            'Error Occured',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyLarge!
+                                .copyWith(color: kLightPrimaryBackgroundColor),
+                          ),
+                        );
+                      }
+                    }
+                    if (snapshot.connectionState == ConnectionState.none) {
+                      return Center(
+                        child: Text(
+                          'Could not load !',
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge!
+                              .copyWith(color: kLightPrimaryBackgroundColor),
+                        ),
+                      );
+                    } else {
+                      return Center(
+                          child: CircularProgressIndicator(
+                        color: kLightPrimaryBackgroundColor,
+                      ));
+                    }
+                  },
+                ),
+              ),
+            ]),
+          ),
         ),
       ),
     );
