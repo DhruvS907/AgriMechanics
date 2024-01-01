@@ -29,7 +29,7 @@ class CustomTextField2 extends StatelessWidget {
         obscureText: tohide,
         keyboardType: isNumericKeyboard ? TextInputType.number : null,
         style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-            color: kprimaryTextColor,
+            color: Colors.black,
             decoration: TextDecoration.underline,
             decorationThickness: 0),
         decoration: InputDecoration(
@@ -37,17 +37,15 @@ class CustomTextField2 extends StatelessWidget {
           labelStyle: Theme.of(context)
               .textTheme
               .bodyLarge!
-              .copyWith(color: kLightSecondaryTextColor),
+              .copyWith(color: Colors.black),
           prefixIcon: icondata,
-          prefixIconColor: kLightSecondaryTextColor,
+          prefixIconColor: Colors.black,
           focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(25),
-              borderSide:
-                  const BorderSide(color: kLightPrimaryBackgroundColor)),
+              borderSide: const BorderSide(color: kLightSecondaryColor)),
           enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(25),
-              borderSide:
-                  const BorderSide(color: kLightPrimaryBackgroundColor)),
+              borderSide: const BorderSide(color: kLightSecondaryColor)),
         ),
       ),
     );

@@ -1,10 +1,12 @@
 import 'package:agri_mechanic/Screens/Interface.dart';
 
 import 'package:agri_mechanic/Authentication_pages/Services/SignUppage.dart';
+import 'package:agri_mechanic/splashscreen.dart';
 import 'package:agri_mechanic/uihelper.dart';
 import 'package:agri_mechanic/utils/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -136,10 +138,13 @@ class _LoginPageState extends State<LoginPage> {
                     height: 20,
                   ),
                   CustomButton(() async {
-                    login(
+                    await login(
                       emailController.text.toString(),
                       passwordController.text.toString(),
                     );
+                    SharedPreferences sp =
+                        await SharedPreferences.getInstance();
+                    sp.setBool(SplashScreenState.KeyisLoggedInService, true);
                   }, "Login", context),
                   const SizedBox(height: 10),
                   Column(

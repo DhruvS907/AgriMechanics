@@ -3,11 +3,13 @@ import 'package:agri_mechanic/Screens/Interface.dart';
 import 'package:agri_mechanic/main.dart';
 import 'package:agri_mechanic/Screens/SaveData.dart';
 import 'package:agri_mechanic/Authentication_pages/Services/loginpage.dart';
+import 'package:agri_mechanic/splashscreen.dart';
 import 'package:agri_mechanic/uihelper.dart';
 import 'package:agri_mechanic/utils/constants.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignUppage extends StatefulWidget {
   const SignUppage({super.key});
@@ -45,7 +47,7 @@ class _SignUppageState extends State<SignUppage> {
         usercredential = await FirebaseAuth.instance
             .createUserWithEmailAndPassword(email: email, password: password)
             .then((value) {
-          Navigator.push(
+          Navigator.pushReplacement(
               context, MaterialPageRoute(builder: (context) => mainscreen2()));
         });
       } on FirebaseAuthException catch (ex) {
@@ -169,6 +171,10 @@ class _SignUppageState extends State<SignUppage> {
                             }
                             signUp(emailController.text.toString(),
                                 passwordController.text.toString());
+                            SharedPreferences sp =
+                                await SharedPreferences.getInstance();
+                            sp.setBool(
+                                SplashScreenState.KeyisLoggedInService, true);
                           }, "SignUp", context),
                           SizedBox(
                             height: 10,

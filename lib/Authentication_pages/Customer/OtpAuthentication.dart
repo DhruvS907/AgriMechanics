@@ -1,11 +1,13 @@
 import 'package:agri_mechanic/Authentication_pages/Customer/OTPscreen.dart';
 
 import 'package:agri_mechanic/Screens/Customer/Screen1.dart';
+import 'package:agri_mechanic/splashscreen.dart';
 import 'package:agri_mechanic/utils/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:agri_mechanic/uihelper.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PhoneAuth extends StatefulWidget {
   const PhoneAuth({super.key});
@@ -18,7 +20,7 @@ class _PhoneAuthState extends State<PhoneAuth> {
   UiHelper _uiHelper = UiHelper();
   TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  bool enterPassword = false;
+  bool enterPassword = true;
   ValueNotifier<bool> isHidden = ValueNotifier<bool>(true);
   @override
   Widget build(BuildContext context) {
@@ -134,8 +136,16 @@ class _PhoneAuthState extends State<PhoneAuth> {
                           if (documentSnapshot.exists) {
                             Map<String, dynamic> data =
                                 documentSnapshot.data() as Map<String, dynamic>;
-                            Navigator.of(context)
-                                .push(MaterialPageRoute(builder: (context) {
+                            SharedPreferences sp =
+                                await SharedPreferences.getInstance();
+                            sp.setBool(
+                                SplashScreenState.KeyisLoggedInpassword, true);
+                            sp.setString(
+                                SplashScreenState.KeyisUsername, data['Name']);
+                            sp.setString(SplashScreenState.KeyisContact_Number,
+                                phoneController.text);
+                            Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(builder: (context) {
                               return Screen1(
                                   UserName: data['Name'],
                                   Contact_Number: phoneController.text);

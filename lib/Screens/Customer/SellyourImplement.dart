@@ -310,12 +310,6 @@ class _SellImplementState extends State<SellImplement> {
                             await UiHelper.CustomAlertBox(
                                 context, "Added to Database");
 
-                            // Navigator.of(context).pushReplacement(
-                            //     MaterialPageRoute(builder: (context) {
-                            //   return Screen1(
-                            //       UserName: widget.Name,
-                            //       Contact_Number: widget.Contact_Number);
-                            // }));
                             Navigator.of(context).pop();
                           }).onError((error, stackTrace) {
                             UiHelper.CustomAlertBox(context, 'Error occured');

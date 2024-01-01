@@ -19,6 +19,8 @@ class ServiceScheduling extends StatefulWidget {
 
 class _ServiceSchedulingState extends State<ServiceScheduling> {
   TextEditingController nameofplacecontroller = TextEditingController();
+  TextEditingController nameofequipmentcontroller = TextEditingController();
+  TextEditingController problemcontroller = TextEditingController();
 
   String getFormattedDate(DateTime date) {
     return DateFormat('yyyy-MM-dd').format(date);
@@ -38,14 +40,20 @@ class _ServiceSchedulingState extends State<ServiceScheduling> {
     });
   }
 
-  scheduleServices(String date, String placeName) async {
+  scheduleServices(String date, String placeName, String nameofimplement,
+      String problemDescription) async {
     if (date == "" && placeName == "") {
       return UiHelper.CustomAlertBox(context, "Please Enter all the details");
     } else {
       FirebaseFirestore.instance
           .collection("Customer")
           .doc(widget.Contact_Number)
-          .update({"Date for Servicing": date, "Place": placeName});
+          .update({
+        "Date for Servicing": date,
+        "Place": placeName,
+        "Name of Implement": nameofimplement,
+        "Problem Description": problemDescription
+      });
     }
   }
 
@@ -81,7 +89,7 @@ class _ServiceSchedulingState extends State<ServiceScheduling> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SizedBox(
-                        height: 40,
+                        height: 20,
                       ),
                       Text(
                         "Choose any one of our following \nservices :",
@@ -92,7 +100,7 @@ class _ServiceSchedulingState extends State<ServiceScheduling> {
                             .copyWith(color: kLightPrimaryBackgroundColor),
                       ),
                       SizedBox(
-                        height: 40,
+                        height: 20,
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 10),
@@ -140,22 +148,39 @@ class _ServiceSchedulingState extends State<ServiceScheduling> {
                               ),
                             ),
                             SizedBox(
-                              width: 40,
+                              width: 30,
                             ),
                           ],
                         ),
                       ),
                       SizedBox(
-                        height: 30,
+                        height: 10,
                       ),
                       CustomTextField(nameofplacecontroller, "Name of Place",
-                          Icon(Icons.agriculture), false, context, null),
+                          Icon(Icons.location_city), false, context, null),
+                      CustomTextField(
+                          nameofequipmentcontroller,
+                          "Name of Equipment",
+                          Icon(Icons.agriculture),
+                          false,
+                          context,
+                          null),
+                      CustomTextField(
+                          problemcontroller,
+                          "Description of Problem",
+                          Icon(Icons.agriculture),
+                          false,
+                          context,
+                          null),
                       SizedBox(
-                        height: 30,
+                        height: 20,
                       ),
                       CustomButton(() async {
                         await scheduleServices(
-                            _dateTime, nameofplacecontroller.text.toString());
+                            _dateTime,
+                            nameofplacecontroller.text.toString(),
+                            nameofequipmentcontroller.text.toString(),
+                            problemcontroller.text.toString());
                         UiHelper.CustomAlertBox(
                             context, "Your Service has been scheduled");
                         Future.delayed(Duration(seconds: 2));

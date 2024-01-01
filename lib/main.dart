@@ -13,6 +13,7 @@ import 'package:agri_mechanic/Screens/Customer/details.dart';
 import 'package:agri_mechanic/Screens/Services/Form.dart';
 import 'package:agri_mechanic/Screens/InitialScreen.dart';
 import 'package:agri_mechanic/Screens/Interface.dart';
+import 'package:agri_mechanic/splashscreen.dart';
 
 import 'package:agri_mechanic/utils/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -32,18 +33,8 @@ void main() async {
       : await Firebase.initializeApp();
   runApp(
     MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: kLightThemeData,
-      home: StreamBuilder(
-        stream: FirebaseAuth.instance.authStateChanges(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return mainscreen2();
-          } else {
-            return InitialScreen();
-          }
-        },
-      ),
-    ),
+        debugShowCheckedModeBanner: false,
+        theme: kLightThemeData,
+        home: SplashScreen()),
   );
 }

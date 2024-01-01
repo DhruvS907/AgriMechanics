@@ -16,8 +16,21 @@ class companyques extends StatelessWidget {
         SizedBox(
           height: 20,
         ),
-        CustomTextField2(companycontroller, "Company Name",
-            Icon(Icons.agriculture), false, context, false)
+        // CustomTextField2(companycontroller, "Company Name",
+        //     Icon(Icons.agriculture), false, context, false)
+        TextFormField(
+          controller: companycontroller,
+          decoration: const InputDecoration(
+              icon: Icon(Icons.agriculture),
+              hintText: 'Tractor Company Name',
+              labelText: "Tractor Company Name"),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return "Please enter Customer's Equipment";
+            }
+            return null;
+          },
+        ),
       ],
     );
     return ownTractorisYes ? widget2 : widget1;
