@@ -18,6 +18,10 @@ class _imagedisplayState extends State<imagedisplay> {
   final CarouselController carouselController = CarouselController();
 
   int currentIndex = 0;
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

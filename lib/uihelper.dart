@@ -147,7 +147,13 @@ class UiHelper {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: const Text("Okay"))
+                  child: Text(
+                    "Okay",
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyLarge!
+                        .copyWith(fontSize: 20),
+                  ))
             ],
           );
         });

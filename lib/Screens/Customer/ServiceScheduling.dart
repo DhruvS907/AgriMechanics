@@ -3,8 +3,7 @@ import 'package:agri_mechanic/uihelper.dart';
 import 'package:agri_mechanic/utils/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:date_field/date_field.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:intl/intl.dart';
 
 class ServiceScheduling extends StatefulWidget {
@@ -27,16 +26,18 @@ class _ServiceSchedulingState extends State<ServiceScheduling> {
   }
 
   String _dateTime = DateFormat('yyyy-MM-dd').format(DateTime.now());
-  void _showDatePicker() {
+  Future<void> _showDatePicker() async {
     showDatePicker(
             context: context,
             firstDate: DateTime(2023),
             lastDate: DateTime(2024),
-            initialDate: DateTime.now())
+            initialDate: DateTime.now().subtract(Duration(days: 1)))
         .then((value) {
       setState(() {
         _dateTime = getFormattedDate(value!);
       });
+    }).onError((error, stackTrace) {
+      UiHelper.CustomAlertBox(context, '${error.toString()}');
     });
   }
 
@@ -55,6 +56,15 @@ class _ServiceSchedulingState extends State<ServiceScheduling> {
         "Problem Description": problemDescription
       });
     }
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    nameofplacecontroller.dispose();
+    nameofequipmentcontroller.dispose();
+    problemcontroller.dispose();
   }
 
   @override
@@ -121,8 +131,8 @@ class _ServiceSchedulingState extends State<ServiceScheduling> {
                               width: 10,
                             ),
                             InkWell(
-                              onTap: () {
-                                _showDatePicker();
+                              onTap: () async {
+                                await _showDatePicker();
                               },
                               child: Container(
                                 height: 50,
@@ -165,13 +175,40 @@ class _ServiceSchedulingState extends State<ServiceScheduling> {
                           false,
                           context,
                           null),
-                      CustomTextField(
-                          problemcontroller,
-                          "Description of Problem",
-                          Icon(Icons.agriculture),
-                          false,
-                          context,
-                          null),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 25, vertical: 15),
+                        child: TextField(
+                          controller: problemcontroller,
+                          keyboardType: TextInputType.multiline,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge!
+                              .copyWith(
+                                  color: kprimaryTextColor,
+                                  decoration: TextDecoration.underline,
+                                  decorationThickness: 0),
+                          textInputAction: TextInputAction.newline,
+                          maxLines: null,
+                          decoration: InputDecoration(
+                            labelText: 'Description',
+                            labelStyle: Theme.of(context)
+                                .textTheme
+                                .bodyLarge!
+                                .copyWith(color: kLightSecondaryTextColor),
+                            suffixIcon: Icon(Icons.description),
+                            suffixIconColor: kLightSecondaryTextColor,
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(25),
+                                borderSide: const BorderSide(
+                                    color: kLightPrimaryBackgroundColor)),
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(25),
+                                borderSide: const BorderSide(
+                                    color: kLightSecondaryTextColor)),
+                          ),
+                        ),
+                      ),
                       SizedBox(
                         height: 20,
                       ),
@@ -190,12 +227,26 @@ class _ServiceSchedulingState extends State<ServiceScheduling> {
                                 builder: (context) => Screen1(
                                     UserName: widget.Name,
                                     Contact_Number: widget.Contact_Number)));
-                      }, "Confirm", context)
+                      }, "Confirm", context),
+                      SizedBox(
+                        height: 60,
+                      ),
                     ]),
               ),
             ),
           ),
         ),
+        Positioned(
+            left: 16,
+            top: 60,
+            child: InkWell(
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
+                child: Icon(
+                  Icons.arrow_back,
+                  size: 24,
+                )))
       ]),
     );
   }

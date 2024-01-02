@@ -1,5 +1,5 @@
 import 'package:agri_mechanic/Screens/Customer/Screen1.dart';
-import 'package:agri_mechanic/Screens/Customer/details.dart';
+
 import 'package:agri_mechanic/Screens/InitialScreen.dart';
 import 'package:agri_mechanic/Screens/Interface.dart';
 import 'package:agri_mechanic/utils/constants.dart';
@@ -29,7 +29,7 @@ class SplashScreenState extends State<SplashScreen> {
   void _navigator() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     bool isLoggedInService = sp.getBool('Loginservices') ?? false;
-    bool isLoggedInpassword = sp.getBool('Loginpassword') ?? false;
+
     String UserName = sp.getString('Username') ?? '';
     String Contact_Number = sp.getString('Contact_Number') ?? '';
 
@@ -47,10 +47,12 @@ class SplashScreenState extends State<SplashScreen> {
                   return Screen1(
                       UserName: UserName, Contact_Number: Contact_Number);
                 }
-              } else if (isLoggedInpassword) {
-                return Screen1(
-                    UserName: UserName, Contact_Number: Contact_Number);
-              } else {
+              }
+              // else if (isLoggedInpassword) {
+              //   return Screen1(
+              //       UserName: UserName, Contact_Number: Contact_Number);
+              // }
+              else {
                 return InitialScreen();
               }
             },
@@ -59,7 +61,6 @@ class SplashScreenState extends State<SplashScreen> {
   }
 
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: kLightPrimaryBackgroundColor,
       body: Padding(

@@ -3,7 +3,7 @@ import 'package:agri_mechanic/Authentication_pages/Customer/OtpAuthentication.da
 import 'package:agri_mechanic/Authentication_pages/Services/loginpage.dart';
 import 'package:agri_mechanic/uihelper.dart';
 import 'package:agri_mechanic/utils/constants.dart';
-import 'package:animated_text_kit/animated_text_kit.dart';
+
 import 'package:flutter/material.dart';
 
 class InitialScreen extends StatefulWidget {
@@ -47,8 +47,8 @@ class _InitialScreenState extends State<InitialScreen>
   @override
   void dispose() {
     // TODO: implement dispose
-    super.dispose();
     _controller.dispose();
+    super.dispose();
   }
 
   @override

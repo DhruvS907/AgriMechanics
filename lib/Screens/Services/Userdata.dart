@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:agri_mechanic/Screens/Services/SpecificUser.dart';
 import 'package:agri_mechanic/utils/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -16,7 +14,6 @@ class customerData extends StatefulWidget {
 class _customerDataState extends State<customerData> {
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: kLightSecondaryColor,
       appBar: AppBar(

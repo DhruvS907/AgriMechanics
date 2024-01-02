@@ -1,12 +1,10 @@
-import 'package:agri_mechanic/Screens/Services/Form.dart';
 import 'package:agri_mechanic/Screens/Interface.dart';
-import 'package:agri_mechanic/main.dart';
-import 'package:agri_mechanic/Screens/SaveData.dart';
+
 import 'package:agri_mechanic/Authentication_pages/Services/loginpage.dart';
 import 'package:agri_mechanic/splashscreen.dart';
 import 'package:agri_mechanic/uihelper.dart';
 import 'package:agri_mechanic/utils/constants.dart';
-import 'package:animated_text_kit/animated_text_kit.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -39,8 +37,8 @@ class _SignUppageState extends State<SignUppage> {
   }
 
   signUp(String email, String password) async {
-    if (email == "" || password == "") {
-      UiHelper.CustomAlertBox(context, "Enter Required Fields");
+    if (emailController.text == '' || passwordController.text == '') {
+      UiHelper.CustomAlertBox(context, 'Please fill all the fields');
     } else {
       UserCredential? usercredential;
       try {
@@ -73,6 +71,17 @@ class _SignUppageState extends State<SignUppage> {
               width: size.width,
             ),
           ),
+          Positioned(
+              left: 16,
+              top: 60,
+              child: InkWell(
+                  onTap: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Icon(
+                    Icons.arrow_back,
+                    size: 24,
+                  ))),
           Positioned(
             bottom: -10,
             left: -5,
@@ -219,7 +228,7 @@ class _SignUppageState extends State<SignUppage> {
                         ]),
                   ),
                 )),
-          )
+          ),
         ]));
   }
 }

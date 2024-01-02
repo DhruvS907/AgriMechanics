@@ -1,12 +1,12 @@
 import 'package:agri_mechanic/Authentication_pages/Services/loginpage.dart';
 import 'package:agri_mechanic/splashscreen.dart';
-import 'package:agri_mechanic/uihelper.dart';
+
 import 'package:agri_mechanic/utils/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 class customerDetails extends StatefulWidget {

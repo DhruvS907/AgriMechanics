@@ -1,14 +1,8 @@
-import 'package:agri_mechanic/Screens/Customer/Screen1.dart';
-import 'package:agri_mechanic/Screens/Customer/details.dart';
-import 'package:agri_mechanic/Screens/InitialScreen.dart';
-import 'package:agri_mechanic/Screens/Interface.dart';
 import 'package:agri_mechanic/Screens/Services/imagedisplay.dart';
 import 'package:agri_mechanic/utils/constants.dart';
-import 'package:carousel_slider/carousel_controller.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-// import 'package:another_carousel_pro/another_carousel_pro.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+
 import 'package:flutter/material.dart';
 
 class implementstosell extends StatefulWidget {
@@ -190,6 +184,5 @@ class _implementstosellState extends State<implementstosell> {
             )),
       ),
     );
-    ;
   }
 }

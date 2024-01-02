@@ -1,6 +1,5 @@
 import 'dart:io';
-import 'dart:typed_data';
-import 'package:agri_mechanic/Screens/Customer/Screen1.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:agri_mechanic/uihelper.dart';
@@ -43,6 +42,12 @@ class _SellImplementState extends State<SellImplement> {
   //   Uint8List img = await pickImage(ImageSource.gallery);
   //   _image = img;
   // }
+  @override
+  void dispose() {
+    nameController.dispose();
+    desiredpriceController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -168,7 +173,8 @@ class _SellImplementState extends State<SellImplement> {
                                 onTap: () async {
                                   ImagePicker imagePicker = ImagePicker();
                                   file1 = await imagePicker.pickImage(
-                                      source: ImageSource.camera);
+                                      source: ImageSource.gallery);
+                                  setState(() {});
                                 },
                                 child: file1 == null
                                     ? Container(
@@ -216,7 +222,8 @@ class _SellImplementState extends State<SellImplement> {
                                   onTap: () async {
                                     ImagePicker imagePicker = ImagePicker();
                                     file2 = await imagePicker.pickImage(
-                                        source: ImageSource.camera);
+                                        source: ImageSource.gallery);
+                                    setState(() {});
                                   },
                                   child: file2 == null
                                       ? Container(
@@ -323,6 +330,17 @@ class _SellImplementState extends State<SellImplement> {
             ),
           ),
         ),
+        Positioned(
+            left: 16,
+            top: 60,
+            child: InkWell(
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
+                child: Icon(
+                  Icons.arrow_back,
+                  size: 24,
+                )))
       ]),
     );
   }

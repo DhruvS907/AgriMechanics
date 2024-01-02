@@ -1,18 +1,15 @@
-import 'package:agri_mechanic/Authentication_pages/Services/loginpage.dart';
 import 'package:agri_mechanic/Screens/InitialScreen.dart';
 import 'package:agri_mechanic/Screens/Services/Form.dart';
 import 'package:agri_mechanic/Screens/Services/Userdata.dart';
 import 'package:agri_mechanic/Screens/Services/implementstosell.dart';
 import 'package:agri_mechanic/splashscreen.dart';
 import 'package:agri_mechanic/uihelper.dart';
-import 'package:agri_mechanic/uihelper.dart';
+
 import 'package:agri_mechanic/utils/constants.dart';
-import 'package:animated_text_kit/animated_text_kit.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../uihelper.dart';
 
 class mainscreen2 extends StatefulWidget {
   const mainscreen2({super.key});
@@ -61,6 +58,12 @@ class _mainscreen2State extends State<mainscreen2>
   }
 
   @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
@@ -94,79 +97,79 @@ class _mainscreen2State extends State<mainscreen2>
                   child: SizedBox(
                     height: size.height * 0.65,
                     width: size.width,
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.max,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            height: 40,
-                          ),
-                          Text(
-                            "Welcome",
-                            textAlign: TextAlign.center,
-                            style: Theme.of(context)
-                                .textTheme
-                                .headlineLarge!
-                                .copyWith(
-                                    color: kLightPrimaryBackgroundColor,
-                                    fontWeight: FontWeight.w700),
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Text(
-                            "Choose any one of our following \noptions :",
-                            textAlign: TextAlign.center,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyLarge!
-                                .copyWith(color: kLightPrimaryBackgroundColor),
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          CustomButton(() {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => customerData()));
-                          }, "Today's Customer", context),
-                          SizedBox(
-                            height: 40,
-                          ),
-                          CustomButton(() {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => mainScreen()));
-                          }, "New Customer", context),
-                          SizedBox(
-                            height: 40,
-                          ),
-                          CustomButton(() {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => implementstosell()));
-                          }, "Implements to Sell", context),
-                        ]),
+                    child: SingleChildScrollView(
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.max,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              height: 40,
+                            ),
+                            Text(
+                              "Welcome",
+                              textAlign: TextAlign.center,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headlineLarge!
+                                  .copyWith(
+                                      color: kLightPrimaryBackgroundColor,
+                                      fontWeight: FontWeight.w700),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Text(
+                              "Choose any one of our following \noptions :",
+                              textAlign: TextAlign.center,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge!
+                                  .copyWith(
+                                      color: kLightPrimaryBackgroundColor),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            CustomButton(() {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => customerData()));
+                            }, "Today's Customer", context),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            CustomButton(() {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => mainScreen()));
+                            }, "New Customer", context),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            CustomButton(() {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          implementstosell()));
+                            }, "Implements to Sell", context),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            CustomButton(() {
+                              Logout();
+                            }, 'Logout', context),
+                            SizedBox(
+                              height: 60,
+                            )
+                          ]),
+                    ),
                   )),
             ),
           ),
-          Positioned(
-              top: 30,
-              right: 15,
-              child: IconButton(
-                icon: Icon(
-                  Icons.exit_to_app_outlined,
-                  color: Colors.black87,
-                  size: 30,
-                ),
-                onPressed: () {
-                  Logout();
-                },
-              ))
         ]));
   }
 }

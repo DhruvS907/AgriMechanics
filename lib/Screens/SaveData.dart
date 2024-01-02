@@ -33,6 +33,13 @@ class _HomePageState extends State<HomePage> {
   }
 
   @override
+  void dispose() {
+    firstnamecontroller.dispose();
+    lastnamecontroller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Add data"), centerTitle: true, actions: [
@@ -53,6 +60,5 @@ class _HomePageState extends State<HomePage> {
         }, "Save Data", context)
       ]),
     );
-    ;
   }
 }
