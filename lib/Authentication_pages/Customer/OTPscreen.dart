@@ -1,9 +1,9 @@
 import 'package:agri_mechanic/Screens/Customer/Screen1.dart';
 import 'package:agri_mechanic/Screens/Customer/details.dart';
-import 'package:agri_mechanic/Screens/SaveData.dart';
-import 'package:agri_mechanic/Screens/Services/Form.dart';
+
 import 'package:agri_mechanic/splashscreen.dart';
 import 'package:agri_mechanic/uihelper.dart';
+import 'package:agri_mechanic/utils/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -22,88 +22,128 @@ class OTPScreen extends StatefulWidget {
 
 class _OTPScreenState extends State<OTPScreen> {
   TextEditingController otpcontroller = TextEditingController();
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    otpcontroller.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
-        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Text(
-            "Enter 6 Digit OTP Sent to your number",
-            style: TextStyle(
-                fontSize: 25, color: Colors.black, fontWeight: FontWeight.w700),
+      body: Stack(children: [
+        Positioned(
+          top: 0,
+          left: 0,
+          right: 0,
+          child: Image(
+            image: const AssetImage("assets/images/Logo.png"),
+            fit: BoxFit.cover,
+            height: size.width,
+            width: size.width,
           ),
-          SizedBox(
-            height: 30,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25),
-            child: TextField(
-              controller: otpcontroller,
-              keyboardType: TextInputType.phone,
-              decoration: InputDecoration(
-                  hintText: "Enter the OTP",
-                  suffixIcon: Icon(Icons.phone),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(25))),
+        ),
+        Positioned(
+          bottom: -10,
+          left: -5,
+          right: -5,
+          child: Card(
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(topLeft: Radius.circular(60))),
+            color: kLightSecondaryColor,
+            child: SizedBox(
+              height: size.height * 0.65,
+              width: size.width,
+              child: SingleChildScrollView(
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 60,
+                      ),
+                      Text("Enter the 6 digit OTP sent to your phone number",
+                          textAlign: TextAlign.start,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium!
+                              .copyWith(color: kLightPrimaryBackgroundColor)),
+                      CustomTextField(otpcontroller, 'Enter OTP',
+                          Icon(Icons.phone), false, context, true),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      CustomButton(() async {
+                        if (await otpcontroller.text.length != 6) {
+                          UiHelper.CustomAlertBox(
+                              context, "OTP must have 6 digits!");
+                          return;
+                        }
+                        try {
+                          PhoneAuthCredential credential =
+                              await PhoneAuthProvider.credential(
+                                  verificationId: widget.verificationId,
+                                  smsCode: otpcontroller.text.toString());
+
+                          FirebaseAuth.instance
+                              .signInWithCredential(credential)
+                              .then((value) async {
+                            try {
+                              DocumentSnapshot documentSnapshot =
+                                  await FirebaseFirestore.instance
+                                      .collection('Customer')
+                                      .doc(widget.contactNumber)
+                                      .get();
+                              if (documentSnapshot.exists) {
+                                Map<String, dynamic> data = documentSnapshot
+                                    .data() as Map<String, dynamic>;
+                                SharedPreferences sp =
+                                    await SharedPreferences.getInstance();
+                                sp.setBool(
+                                    SplashScreenState.KeyisLoggedInpassword,
+                                    true);
+                                sp.setString(SplashScreenState.KeyisUsername,
+                                    data['Name']);
+                                sp.setString(
+                                    SplashScreenState.KeyisContact_Number,
+                                    widget.contactNumber);
+                                Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return Screen1(
+                                          UserName: data['Name'],
+                                          Contact_Number: widget.contactNumber);
+                                    },
+                                  ),
+                                );
+                              } else {
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => details(
+                                              Contact_Number:
+                                                  widget.contactNumber,
+                                            )));
+                              }
+                            } catch (error) {
+                              UiHelper.CustomAlertBox(
+                                  context, error.toString());
+                            }
+                          }).onError((error, stackTrace) {
+                            UiHelper.CustomAlertBox(context, 'Invalid OTP');
+                          });
+                        } catch (ex) {
+                          UiHelper.CustomAlertBox(context, ex.toString());
+                        }
+                      }, 'Verify', context)
+                    ]),
+              ),
             ),
           ),
-          SizedBox(
-            height: 30,
-          ),
-          ElevatedButton(
-              onPressed: () async {
-                try {
-                  PhoneAuthCredential credential =
-                      await PhoneAuthProvider.credential(
-                          verificationId: widget.verificationId,
-                          smsCode: otpcontroller.text.toString());
-                  FirebaseAuth.instance
-                      .signInWithCredential(credential)
-                      .then((value) async {
-                    try {
-                      DocumentSnapshot documentSnapshot =
-                          await FirebaseFirestore.instance
-                              .collection('Customer')
-                              .doc(widget.contactNumber)
-                              .get();
-                      if (documentSnapshot.exists) {
-                        Map<String, dynamic> data =
-                            documentSnapshot.data() as Map<String, dynamic>;
-                        SharedPreferences sp =
-                            await SharedPreferences.getInstance();
-                        sp.setBool(
-                            SplashScreenState.KeyisLoggedInpassword, true);
-                        sp.setString(
-                            SplashScreenState.KeyisUsername, data['Name']);
-                        sp.setString(SplashScreenState.KeyisContact_Number,
-                            widget.contactNumber);
-                        Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(builder: (context) {
-                          return Screen1(
-                              UserName: data['Name'],
-                              Contact_Number: widget.contactNumber);
-                        }));
-                      } else {
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => details(
-                                      Contact_Number: widget.contactNumber,
-                                    )));
-                      }
-                    } catch (error) {
-                      UiHelper.CustomAlertBox(context, error.toString());
-                    }
-                  });
-                } catch (ex) {
-                  UiHelper.CustomAlertBox(context, ex.toString());
-                }
-              },
-              child: Text("Verify"))
-        ]),
-      ),
+        ),
+      ]),
     );
   }
 }

@@ -21,9 +21,9 @@ class _LoginPageState extends State<LoginPage> {
   ValueNotifier<bool> isHidden = ValueNotifier<bool>(true);
   @override
   void dispose() {
-    super.dispose();
     emailController.dispose();
     passwordController.dispose();
+    super.dispose();
   }
 
   login(String email, String password) async {
@@ -138,6 +138,12 @@ class _LoginPageState extends State<LoginPage> {
                     height: 20,
                   ),
                   CustomButton(() async {
+                    if (emailController.text == '' ||
+                        passwordController.text == '') {
+                      UiHelper.CustomAlertBox(
+                          context, 'Please fill all the fields');
+                      return;
+                    }
                     await login(
                       emailController.text.toString(),
                       passwordController.text.toString(),
@@ -185,6 +191,17 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
         ),
+        Positioned(
+            left: 16,
+            top: 60,
+            child: InkWell(
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
+                child: Icon(
+                  Icons.arrow_back,
+                  size: 24,
+                )))
       ]),
     );
   }

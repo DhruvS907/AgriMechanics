@@ -86,6 +86,21 @@ class _mainScreenState extends State<mainScreen> {
   }
 
   late bool ownTractor;
+  @override
+  void dispose() {
+    namecontroller.dispose();
+    mobilenumbercontroller.dispose();
+    villagedistrictcontroller.dispose();
+    areaofcultivationcontroller.dispose();
+    areaofcultivationcontroller.dispose();
+    equipmentcontroller.dispose();
+    equipmentexchangecontroller.dispose();
+    equipmentfuturecontroller.dispose();
+    govtsubsidycontroller.dispose();
+    leaseequipmentcontroller.dispose();
+    equipmentexchangecontroller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

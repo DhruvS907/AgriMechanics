@@ -1,8 +1,6 @@
 // ignore_for_file: camel_case_types
 
-import 'package:agri_mechanic/uihelper.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class companyques extends StatelessWidget {
   companyques({super.key, required this.ownTractorisYes});

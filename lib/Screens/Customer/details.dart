@@ -3,7 +3,7 @@ import 'package:agri_mechanic/splashscreen.dart';
 import 'package:agri_mechanic/uihelper.dart';
 import 'package:agri_mechanic/utils/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -17,10 +17,11 @@ class details extends StatefulWidget {
 
 class _detailsState extends State<details> {
   TextEditingController namecontroller = TextEditingController();
-  TextEditingController contact_numbercontroller = TextEditingController();
-  TextEditingController passwordcontroller = TextEditingController();
+  // TextEditingController contact_numbercontroller = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
   TextEditingController addresscontroller = TextEditingController();
-
+  ValueNotifier<bool> isHidden = ValueNotifier<bool>(true);
   saveDetails(String Name, String Contact_Number, String Password,
       String Address) async {
     if (Name == "" && Contact_Number == "" && Password == "" && Address == "") {
@@ -44,6 +45,16 @@ class _detailsState extends State<details> {
                     )));
       });
     }
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    namecontroller.dispose();
+    passwordController.dispose();
+    addresscontroller.dispose();
+    confirmPasswordController.dispose();
   }
 
   @override
@@ -90,53 +101,108 @@ class _detailsState extends State<details> {
                       ),
                       CustomTextField(namecontroller, "Name",
                           Icon(Icons.person), false, context, false),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 25, vertical: 15),
-                        child: TextField(
-                          controller: contact_numbercontroller,
-                          readOnly: true,
-                          obscureText: false,
-                          keyboardType: TextInputType.phone,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyLarge!
-                              .copyWith(
-                                  color: kprimaryTextColor,
-                                  decoration: TextDecoration.underline,
-                                  decorationThickness: 0),
-                          decoration: InputDecoration(
-                            hintText: widget.Contact_Number,
-                            labelText: "Contact Number",
-                            labelStyle: Theme.of(context)
-                                .textTheme
-                                .bodyLarge!
-                                .copyWith(color: kLightSecondaryTextColor),
-                            suffixIcon: Icon(Icons.phone),
-                            suffixIconColor: kLightSecondaryTextColor,
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(25),
-                                borderSide: const BorderSide(
-                                    color: kLightPrimaryBackgroundColor)),
-                            enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(25),
-                                borderSide: const BorderSide(
-                                    color: kLightSecondaryTextColor)),
-                          ),
-                        ),
-                      ),
-                      CustomTextField(passwordcontroller, "Password",
-                          Icon(Icons.password), true, context, null),
+                      // Padding(
+                      //   padding: const EdgeInsets.symmetric(
+                      //       horizontal: 25, vertical: 15),
+                      //   child: TextField(
+                      //     controller: contact_numbercontroller,
+                      //     readOnly: true,
+                      //     obscureText: false,
+                      //     keyboardType: TextInputType.phone,
+                      //     style: Theme.of(context)
+                      //         .textTheme
+                      //         .bodyLarge!
+                      //         .copyWith(
+                      //             color: kprimaryTextColor,
+                      //             decoration: TextDecoration.underline,
+                      //             decorationThickness: 0),
+                      //     decoration: InputDecoration(
+                      //       hintText: widget.Contact_Number,
+                      //       labelText: "Contact Number",
+                      //       labelStyle: Theme.of(context)
+                      //           .textTheme
+                      //           .bodyLarge!
+                      //           .copyWith(color: kLightSecondaryTextColor),
+                      //       suffixIcon: Icon(Icons.phone),
+                      //       suffixIconColor: kLightSecondaryTextColor,
+                      //       focusedBorder: OutlineInputBorder(
+                      //           borderRadius: BorderRadius.circular(25),
+                      //           borderSide: const BorderSide(
+                      //               color: kLightPrimaryBackgroundColor)),
+                      //       enabledBorder: OutlineInputBorder(
+                      //           borderRadius: BorderRadius.circular(25),
+                      //           borderSide: const BorderSide(
+                      //               color: kLightSecondaryTextColor)),
+                      //     ),
+                      //   ),
+                      // ),
                       CustomTextField(addresscontroller, "Village, District",
                           Icon(Icons.place), false, context, null),
+
+                      ValueListenableBuilder(
+                          valueListenable: isHidden,
+                          builder: (context, value, _) {
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 25, vertical: 15),
+                              child: TextField(
+                                controller: passwordController,
+                                obscureText: value,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge!
+                                    .copyWith(
+                                        color: kprimaryTextColor,
+                                        decoration: TextDecoration.underline,
+                                        decorationThickness: 0),
+                                decoration: InputDecoration(
+                                  labelText: 'Password',
+                                  labelStyle: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge!
+                                      .copyWith(
+                                          color: kLightSecondaryTextColor),
+                                  suffixIcon: IconButton(
+                                      onPressed: () {
+                                        isHidden.value = !isHidden.value;
+                                      },
+                                      icon: value
+                                          ? Icon(Icons.visibility_off)
+                                          : Icon(Icons.visibility)),
+                                  suffixIconColor: kLightSecondaryTextColor,
+                                  focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(25),
+                                      borderSide: const BorderSide(
+                                          color: kLightPrimaryBackgroundColor)),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(25),
+                                      borderSide: const BorderSide(
+                                          color: kLightSecondaryTextColor)),
+                                ),
+                              ),
+                            );
+                          }),
+                      CustomTextField(
+                          confirmPasswordController,
+                          "Confirm Password",
+                          Icon(Icons.password),
+                          true,
+                          context,
+                          null),
                       SizedBox(
                         height: 20,
                       ),
                       CustomButton(() async {
+                        if (passwordController.text !=
+                            confirmPasswordController.text) {
+                          UiHelper.CustomAlertBox(
+                              context, 'Passwords do not match');
+                          return;
+                        }
                         saveDetails(
                             namecontroller.text.toString(),
                             widget.Contact_Number,
-                            passwordcontroller.text.toString(),
+                            passwordController.text.toString(),
                             addresscontroller.text.toString());
                         SharedPreferences sp =
                             await SharedPreferences.getInstance();
@@ -146,7 +212,7 @@ class _detailsState extends State<details> {
                             widget.Contact_Number);
                       }, "Become a Member", context),
                       SizedBox(
-                        height: 40,
+                        height: 60,
                       ),
                     ]),
               ),

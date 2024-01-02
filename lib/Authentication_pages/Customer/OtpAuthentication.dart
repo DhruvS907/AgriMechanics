@@ -17,11 +17,18 @@ class PhoneAuth extends StatefulWidget {
 }
 
 class _PhoneAuthState extends State<PhoneAuth> {
-  UiHelper _uiHelper = UiHelper();
   TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   bool enterPassword = true;
   ValueNotifier<bool> isHidden = ValueNotifier<bool>(true);
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    phoneController.dispose();
+    passwordController.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -126,6 +133,12 @@ class _PhoneAuthState extends State<PhoneAuth> {
                       height: 20,
                     ),
                     CustomButton(() async {
+                      if (phoneController.text == '' ||
+                          (passwordController.text == '' && enterPassword)) {
+                        UiHelper.CustomAlertBox(
+                            context, 'Please fill all the fields');
+                        return;
+                      }
                       if (enterPassword) {
                         try {
                           DocumentSnapshot documentSnapshot =
@@ -230,6 +243,17 @@ class _PhoneAuthState extends State<PhoneAuth> {
             ),
           ),
         ),
+        Positioned(
+            left: 16,
+            top: 60,
+            child: InkWell(
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
+                child: Icon(
+                  Icons.arrow_back,
+                  size: 24,
+                )))
       ]),
     );
   }
