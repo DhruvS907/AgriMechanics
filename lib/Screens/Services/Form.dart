@@ -77,13 +77,13 @@ class _mainScreenState extends State<mainScreen> {
     }
   }
 
-  Logout() async {
-    FirebaseAuth.instance.signOut();
-    SharedPreferences sp = await SharedPreferences.getInstance();
-    sp.setBool(SplashScreenState.KeyisLoggedInService, false);
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => InitialScreen()));
-  }
+  // Logout() async {
+  //   FirebaseAuth.instance.signOut();
+  //   SharedPreferences sp = await SharedPreferences.getInstance();
+  //   sp.setBool(SplashScreenState.KeyisLoggedInService, false);
+  //   Navigator.pushReplacement(
+  //       context, MaterialPageRoute(builder: (context) => InitialScreen()));
+  // }
 
   late bool ownTractor;
   @override
@@ -106,18 +106,12 @@ class _mainScreenState extends State<mainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text(
-            "Customer Details",
-            style: TextStyle(fontWeight: FontWeight.w700),
-          ),
-          centerTitle: true,
-          actions: [
-            IconButton(
-                onPressed: () {
-                  Logout();
-                },
-                icon: Icon(Icons.logout))
-          ]),
+        title: Text(
+          "Customer Details",
+          style: TextStyle(fontWeight: FontWeight.w700),
+        ),
+        centerTitle: true,
+      ),
       body: Form(
         key: _formKey,
         child: SingleChildScrollView(

@@ -65,7 +65,7 @@ class _OTPScreenState extends State<OTPScreen> {
                         height: 60,
                       ),
                       Text("Enter the 6 digit OTP sent to your phone number",
-                          textAlign: TextAlign.start,
+                          textAlign: TextAlign.center,
                           style: Theme.of(context)
                               .textTheme
                               .bodyMedium!

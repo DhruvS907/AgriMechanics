@@ -43,7 +43,7 @@ class _ServiceSchedulingState extends State<ServiceScheduling> {
 
   scheduleServices(String date, String placeName, String nameofimplement,
       String problemDescription) async {
-    if (date == "" && placeName == "") {
+    if (date == "" || placeName == "" || problemDescription == "") {
       return UiHelper.CustomAlertBox(context, "Please Enter all the details");
     } else {
       FirebaseFirestore.instance
