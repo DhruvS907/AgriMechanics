@@ -29,12 +29,12 @@ class _ServiceSchedulingState extends State<ServiceScheduling> {
   Future<void> _showDatePicker() async {
     showDatePicker(
             context: context,
-            firstDate: DateTime(2023),
-            lastDate: DateTime(2024),
-            initialDate: DateTime.now().subtract(Duration(days: 1)))
+            firstDate: DateTime.now(),
+            lastDate: DateTime.now().add(Duration(days: 365)),
+            initialDate: DateTime.now())
         .then((value) {
       setState(() {
-        _dateTime = getFormattedDate(value!);
+        if (value != null) _dateTime = getFormattedDate(value);
       });
     }).onError((error, stackTrace) {
       UiHelper.CustomAlertBox(context, '${error.toString()}');
@@ -43,24 +43,19 @@ class _ServiceSchedulingState extends State<ServiceScheduling> {
 
   scheduleServices(String date, String placeName, String nameofimplement,
       String problemDescription) async {
-    if (date == "" || placeName == "" || problemDescription == "") {
-      return UiHelper.CustomAlertBox(context, "Please Enter all the details");
-    } else {
-      FirebaseFirestore.instance
-          .collection("Customer")
-          .doc(widget.Contact_Number)
-          .update({
-        "Date for Servicing": date,
-        "Place": placeName,
-        "Name of Implement": nameofimplement,
-        "Problem Description": problemDescription
-      });
-    }
+    FirebaseFirestore.instance
+        .collection("Customer")
+        .doc(widget.Contact_Number)
+        .update({
+      "Date for Servicing": date,
+      "Place": placeName,
+      "Name of Implement": nameofimplement,
+      "Problem Description": problemDescription
+    });
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     nameofplacecontroller.dispose();
     nameofequipmentcontroller.dispose();
@@ -213,6 +208,12 @@ class _ServiceSchedulingState extends State<ServiceScheduling> {
                         height: 20,
                       ),
                       CustomButton(() async {
+                        if (nameofequipmentcontroller.text == "" ||
+                            nameofequipmentcontroller == "" ||
+                            problemcontroller == "") {
+                          return UiHelper.CustomAlertBox(
+                              context, "Please enter all the details");
+                        }
                         await scheduleServices(
                             _dateTime,
                             nameofplacecontroller.text.toString(),

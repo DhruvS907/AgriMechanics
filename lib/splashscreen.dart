@@ -61,6 +61,7 @@ class SplashScreenState extends State<SplashScreen> {
   }
 
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: kLightPrimaryBackgroundColor,
       body: Padding(
@@ -82,8 +83,9 @@ class SplashScreenState extends State<SplashScreen> {
             tag: 'assets/images/Logo.png',
             child: Image.asset(
               'assets/images/Logo.png',
-              width: 400,
-              height: 400,
+              width: size.width,
+              height: size.width,
+              fit: BoxFit.cover,
             ),
           )
         ])),

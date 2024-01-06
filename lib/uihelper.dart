@@ -141,7 +141,10 @@ class UiHelper {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text(text),
+            content: Text(
+              text,
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
             actions: [
               TextButton(
                   onPressed: () {
@@ -149,10 +152,7 @@ class UiHelper {
                   },
                   child: Text(
                     "Okay",
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyLarge!
-                        .copyWith(fontSize: 20),
+                    style: Theme.of(context).textTheme.titleMedium!.copyWith(),
                   ))
             ],
           );
